@@ -1,0 +1,34 @@
+name: Build/Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install
+      run: yarn install
+
+    - name: Lint
+      run: yarn run lint
+
+    - name: Build
+      run: yarn run build
+
+    - name: Test
+      run: yarn run test
+
+    - name: Publish NPM
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: yarn publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
