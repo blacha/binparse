@@ -1,3 +1,13 @@
+# [0.2.0](https://github.com/blacha/binparse/compare/v0.1.0...v0.2.0) (2020-08-29)
+
+
+### Features
+
+* improve typing of bp.lookup and bp.enum ([6a964de](https://github.com/blacha/binparse/commit/6a964de518282933f61de1f24d524c3d27d20f68))
+* **bitstream:** bitstream string reader ([3b6b13f](https://github.com/blacha/binparse/commit/3b6b13f132b751436ef39a37a9deb4cc75347d22))
+
+
+
 # 0.1.0 (2020-08-29)
 
 
