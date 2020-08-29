@@ -1,4 +1,4 @@
-import { StrutTypeBits } from './bits';
+import { StrutTypeBits, StrutTypeFlags } from './bits';
 import { LUInt16, LUInt32, UInt8 } from './int';
 import { StrutTypeLookup } from './lookup';
 import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object';
@@ -59,8 +59,11 @@ export const bp = {
     return new StrutTypeStringFixed(length);
   },
   /** User a bit parser to extract raw bits from the buffer */
-  bits<T extends Record<string, number>>(name: string, obj: T) {
+  bits<T extends Record<string, number>>(name: string, obj: T): StrutTypeBits<T> {
     return new StrutTypeBits(name, obj);
+  },
+  flags<T extends Record<string, number>>(name: string, type: StrutType<number>, flags: T): StrutTypeFlags<T> {
+    return new StrutTypeFlags(name, type, flags);
   },
   object<T extends Record<string, StrutAny>>(name: string, obj: T): StrutTypeObject<T> {
     return new StrutTypeObject(name, obj);

@@ -11,7 +11,7 @@ o.spec('StrutLookup', () => {
   o('should lookup from enum', () => {
     const lookup = new StrutTypeLookup('Foo', bp.u8, (id) => Foo[id]);
     const val = lookup.parse([1], { offset: 0, startOffset: 0 });
-    o(val.name).equals('bar');
+    o(val.name).equals(Foo[1]);
     o(val.id).equals(1);
   });
 });

@@ -1,6 +1,6 @@
 import { StrutBase } from './base';
 import { BitStream } from './bitstream';
-import { StrutParserInput, StrutParserContext } from './type';
+import { StrutParserInput, StrutParserContext, StrutType } from './type';
 
 export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T> {
   fields: { key: string; bits: number }[];
@@ -26,6 +26,26 @@ export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T
       output[key] = bs.bits(bits);
     }
     pkt.offset += this.bytesRequired;
+    return output;
+  }
+}
+
+export class StrutTypeFlags<T extends Record<string, number>> extends StrutBase<Partial<Record<keyof T, boolean>>> {
+  type: StrutType<number>;
+  fields: [string, number][];
+  constructor(name: string, type: StrutType<number>, obj: T) {
+    super('BitsFlags:' + name);
+    this.type = type;
+    this.fields = Object.entries(obj);
+  }
+
+  parse(bytes: StrutParserInput, pkt: StrutParserContext): Record<keyof T, boolean> {
+    const raw = this.type.parse(bytes, pkt);
+    const output = {} as any;
+    for (const [key, value] of this.fields) {
+      const flagValue = (raw & value) == value;
+      if (flagValue) output[key] = flagValue;
+    }
     return output;
   }
 }
