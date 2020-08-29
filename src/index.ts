@@ -1,6 +1,6 @@
 import { StrutTypeBits, StrutTypeFlags } from './bits';
 import { LUInt16, LUInt32, UInt8 } from './int';
-import { StrutTypeLookup } from './lookup';
+import { StrutTypeEnum, StrutTypeLookup } from './lookup';
 import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
 import { StrutAny, StrutParserInput, StrutType } from './type';
@@ -69,12 +69,13 @@ export const bp = {
     return new StrutTypeObject(name, obj);
   },
   /** Convert a number lookup into a human friendly output */
-  lookup<T, K extends keyof T>(
-    name: string,
-    type: StrutType<number>,
-    lookup: (id: number) => keyof T,
-  ): StrutTypeLookup<T, K> {
+  lookup<T>(name: string, type: StrutType<number>, lookup: (id: number) => keyof T | undefined): StrutTypeLookup<T> {
     return new StrutTypeLookup(name, type, lookup);
+  },
+
+  /** Reverse lookup from a enumeration */
+  enum<T extends Record<string, string | number>>(name: string, type: StrutType<number>, e: T): StrutTypeEnum<T> {
+    return new StrutTypeEnum<T>(name, type, e);
   },
   /**
    * Read a byte array
