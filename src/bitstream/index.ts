@@ -43,6 +43,7 @@ export class BitStream {
     this.offset += bits;
   }
 
+  /** Read a single bit */
   bit(): number {
     if (this.remainingBits < 0) throw new Error('BitStream: Overflow ' + this.remainingBits);
 
@@ -51,6 +52,11 @@ export class BitStream {
     const byte = this.buffer[bytePos];
     this.offset++;
     return this.getBitValue(byte, bitPos, 1);
+  }
+
+  /** Read a boolean from a bit */
+  bool(): boolean {
+    return this.bit() === 1;
   }
 
   /** Read bits */

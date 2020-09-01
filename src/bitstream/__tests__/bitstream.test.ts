@@ -21,6 +21,12 @@ o.spec('BitStream', () => {
     o(new BitStream([0xff, 0xff, 0xff, 0xff]).bits(32)).equals(256 ** 4 - 1);
   });
 
+  o('should read a boolean', () => {
+    const br = new BitStream([0b10]);
+    o(br.bool()).equals(false);
+    o(br.bool()).equals(true);
+  });
+
   o('should read a string', () => {
     // o(new BitStream(toNullString('Hello')).string()).equals('Hello');
     // o(new BitStream(toNullString('Hello World')).string(2)).equals('He');
