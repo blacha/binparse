@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/blacha/binparse/compare/v0.2.0...v0.3.0) (2020-09-01)
+
+
+### Features
+
+* adding .bool() ([e7c904a](https://github.com/blacha/binparse/commit/e7c904a9ace88a5c9596ebdba4a97850b93171df))
+
+
+
 # [0.2.0](https://github.com/blacha/binparse/compare/v0.1.0...v0.2.0) (2020-08-29)
 
 
