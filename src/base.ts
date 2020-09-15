@@ -10,12 +10,12 @@ export abstract class StrutBase<T> implements StrutType<T> {
   abstract parse(bytes: StrutParserInput, pkt: StrutParserContext): T;
 
   /** Read in raw instance of this object */
-  raw(bytes: number[], offset = 0): T {
+  raw(bytes: StrutParserInput, offset = 0): T {
     return this.parse(bytes, { offset, startOffset: 0 });
   }
 
   /** Read in a new instance of this object */
-  read(bytes: number[]): { value: T; offset: number } {
+  read(bytes: StrutParserInput): { value: T; offset: number } {
     const ctx = { offset: 0, startOffset: 0 };
     const value = this.parse(bytes, ctx);
     return { value, offset: ctx.offset };

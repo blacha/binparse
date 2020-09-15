@@ -6,6 +6,7 @@ import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
 import { StrutAny, StrutParserInput, StrutType } from './type';
 import { StrutTypeVariable } from './var';
 import { StrutTypeOffset } from './offset';
+import { StrutBase } from './base';
 
 const u8 = new UInt8('UInt8');
 const lu16 = new LUInt16('LUInt16');
@@ -54,7 +55,7 @@ export const bp = {
    * Read a string
    * @param length max number of bytes to read if defined, otherwise read util finding a null or end of buffer
    */
-  string(length?: number): StrutType<string> {
+  string(length?: number): StrutBase<string> {
     if (length == null) return new StrutTypeStringNull();
     return new StrutTypeStringFixed(length);
   },

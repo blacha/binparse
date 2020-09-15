@@ -1,4 +1,9 @@
-export type StrutParserInput = number[] | Uint8Array | Buffer;
+/** Minimal interface that should allow for `UInt8Array` `Buffer` and `number[]` to be passed into our functions */
+export interface StrutParserInput {
+  readonly [n: number]: number;
+  length: number;
+  slice(start: number, end: number): StrutParserInput;
+}
 
 /** Parser context that is passed around during the parsing process */
 export interface StrutParserContext {
@@ -15,6 +20,9 @@ export interface StrutType<T> {
   name: string;
   /** Parse some bytes with the provided context */
   parse(bytes: StrutParserInput, pkt: StrutParserContext): T;
+
+  /** Read in the data throwing away any parser information */
+  raw(bytes: StrutParserInput, offset?: number): T;
 }
 
 export type StrutAny = StrutType<any>;
