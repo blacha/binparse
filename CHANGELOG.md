@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/blacha/binparse/compare/v0.3.0...v1.0.0) (2020-09-15)
+
+
+### Features
+
+* reduce interface for input ([003ca23](https://github.com/blacha/binparse/commit/003ca235f60328453dccf0e9d7b744bbb46e5068))
+
+
+### BREAKING CHANGES
+
+* no longer use Buffer | number[] as the typeing for it is too broad, use a very minimal type interface
+
+
+
 # [0.3.0](https://github.com/blacha/binparse/compare/v0.2.0...v0.3.0) (2020-09-01)
 
 
