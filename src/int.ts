@@ -15,7 +15,7 @@ export class LUInt16 extends StrutBase<number> {
     const byteA = bytes[offset];
     const byteB = bytes[offset + 1] << 8;
     pkt.offset += 2;
-    return byteA + byteB;
+    return byteA | byteB;
   }
 }
 export class LUInt32 extends StrutBase<number> {
@@ -24,8 +24,8 @@ export class LUInt32 extends StrutBase<number> {
     const byteA = bytes[offset];
     const byteB = bytes[offset + 1] << 8;
     const byteC = bytes[offset + 2] << 16;
-    const byteD = bytes[offset + 3] << 24;
+    const byteD = bytes[offset + 3] * 0x1000000;
     pkt.offset += 4;
-    return byteA + byteB + byteC + byteD;
+    return (byteA | byteB | byteC) + byteD;
   }
 }

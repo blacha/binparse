@@ -92,5 +92,20 @@ o.spec('DataType', () => {
       o(bp.lu32.parse([0, 0, 0, 1], { offset: 0, startOffset: 0 })).equals(16777216);
       o(bp.lu32.parse([255, 255, 255, 1], { offset: 0, startOffset: 0 })).equals(33554431);
     });
+
+    o('unit32 from buffer', () => {
+      const bytes = Buffer.from([0xdd, 0x7e, 0xf4, 0xaa, 0x7f, 0xf7, 0x8c, 0xa6]);
+      const uintA = bp.lu32.parse(bytes, { offset: 0, startOffset: 4 });
+      const uintB = bp.lu32.parse(bytes, { offset: 4, startOffset: 4 });
+
+      o(uintA).equals(bytes.readUInt32LE(0));
+      o(uintB).equals(bytes.readUInt32LE(4));
+
+      const outputBuffer = Buffer.alloc(bytes.length);
+      outputBuffer.writeUInt32LE(uintA, 0);
+      outputBuffer.writeUInt32LE(uintB, 4);
+
+      o(outputBuffer.toString('hex')).equals(bytes.toString('hex'));
+    });
   });
 });
