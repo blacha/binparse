@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/blacha/binparse/compare/v1.0.0...v1.0.1) (2020-09-16)
+
+
+### Bug Fixes
+
+* **uint32:** uint32 is now actually a uint ([de97952](https://github.com/blacha/binparse/commit/de979521a8549b782b604b73aed33998ea98967b))
+
+
+
 # [1.0.0](https://github.com/blacha/binparse/compare/v0.3.0...v1.0.0) (2020-09-15)
 
 
