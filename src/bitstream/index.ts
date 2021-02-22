@@ -65,7 +65,7 @@ export class BitStream {
     let bits = 0;
     while (length > 0) {
       const bit = this.bit();
-      if (bit == 1) bits += Power2[initialLen - length];
+      if (bit === 1) bits += Power2[initialLen - length];
       length--;
     }
     return bits;
@@ -83,7 +83,7 @@ export class BitStream {
     if (length == null) length = Math.floor(this.remainingBits / 8);
     for (let i = 0; i < length; i++) {
       const chr = this.bits(8);
-      if (chr == 0x00) break;
+      if (chr === 0x00) break;
       buf.push(String.fromCharCode(chr));
     }
     return buf.join('');

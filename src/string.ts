@@ -16,7 +16,7 @@ export class StrutTypeStringNull extends StrutBase<string> {
     let size = 0;
     while (size + offset < bytes.length) {
       const res = bytes[offset + size];
-      if (res == 0x00) break;
+      if (res === 0x00) break;
       value.push(String.fromCharCode(res));
       size++;
     }
@@ -47,7 +47,7 @@ export class StrutTypeStringFixed extends StrutBase<string> {
     let size = 0;
     while (size < this.maxLength) {
       const res = bytes[offset + size];
-      if (res == 0x00) break;
+      if (res === 0x00) break;
       value.push(String.fromCharCode(res));
       size++;
     }

@@ -43,7 +43,7 @@ export class StrutTypeFlags<T extends Record<string, number>> extends StrutBase<
     const raw = this.type.parse(bytes, pkt);
     const output = {} as any;
     for (const [key, value] of this.fields) {
-      const flagValue = (raw & value) == value;
+      const flagValue = (raw & value) === value;
       if (flagValue) output[key] = flagValue;
     }
     return output;
