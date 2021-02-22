@@ -21,7 +21,7 @@ export abstract class StrutBase<T> implements StrutType<T> {
     return { value, offset: ctx.offset };
   }
 
-  refine<TOut>(cb: RefineCallBack<T, TOut>) : StrutType<TOut> {
+  refine<TOut>(cb: RefineCallBack<T, TOut>): StrutType<TOut> {
     return new StrutRefine(this, cb);
   }
 }

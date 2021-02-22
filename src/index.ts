@@ -28,7 +28,7 @@ function array<T>(name: string, type: StrutType<T>, count: number): StrutTypeArr
  */
 function array<T>(name: string, type: StrutType<T>, varName: string, isMaxLength?: boolean): StrutTypeArrayOffset<T>;
 function array<T>(name: string, type: StrutType<T>, count: string | number, isMaxLength?: boolean): StrutType<T[]> {
-  if (typeof count == 'number') return new StrutTypeArray<T>(name, type, count);
+  if (typeof count === 'number') return new StrutTypeArray<T>(name, type, count);
   return new StrutTypeArrayOffset(name, type, count, isMaxLength ?? false);
 }
 
