@@ -1,4 +1,4 @@
-import { StrutParserContext, StrutParserInput, StrutType } from './type';
+import { RefineCallBack, StrutParserContext, StrutParserInput, StrutType } from './type';
 
 export abstract class StrutBase<T> implements StrutType<T> {
   /** Human friendly name of the parser */
@@ -15,9 +15,29 @@ export abstract class StrutBase<T> implements StrutType<T> {
   }
 
   /** Read in a new instance of this object */
-  read(bytes: StrutParserInput): { value: T; offset: number } {
-    const ctx = { offset: 0, startOffset: 0 };
+  read(bytes: StrutParserInput, offset = 0): { value: T; offset: number } {
+    const ctx = { offset, startOffset: offset };
     const value = this.parse(bytes, ctx);
     return { value, offset: ctx.offset };
+  }
+
+  refine<TOut>(cb: RefineCallBack<T, TOut>) : StrutType<TOut> {
+    return new StrutRefine(this, cb);
+  }
+}
+
+export class StrutRefine<TOut, TIn> extends StrutBase<TOut> {
+  cb: RefineCallBack<TIn, TOut>;
+  input: StrutBase<TIn>;
+
+  constructor(input: StrutBase<TIn>, cb: RefineCallBack<TIn, TOut>) {
+    super('Function:' + input.name);
+    this.input = input;
+    this.cb = cb;
+  }
+
+  parse(bytes: StrutParserInput, ctx: StrutParserContext): TOut {
+    const value = this.input.parse(bytes, ctx);
+    return this.cb(value, bytes, ctx);
   }
 }

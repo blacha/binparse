@@ -15,6 +15,7 @@ export class StrutTypeBytes extends StrutBase<StrutParserInput> {
     return value;
   }
 }
+
 export class StrutTypeSkip extends StrutBase<undefined> {
   count: number;
 

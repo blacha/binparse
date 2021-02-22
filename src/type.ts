@@ -23,7 +23,12 @@ export interface StrutType<T> {
 
   /** Read in the data throwing away any parser information */
   raw(bytes: StrutParserInput, offset?: number): T;
+
+  /** Refine the type using a custom function */
+  refine<TOut>(cb: RefineCallBack<T, TOut>): StrutType<TOut>;
 }
+
+export type RefineCallBack<TIn, TOut> = (value: TIn, bytes?: StrutParserInput, pkt?: StrutParserContext) => TOut;
 
 export type StrutAny = StrutType<any>;
 export type StrutEval<T> = T extends any[] | Date ? T : { [Key in keyof T]: T[Key] };

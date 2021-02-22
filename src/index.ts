@@ -1,12 +1,12 @@
+import { StrutBase } from './base';
 import { StrutTypeBits, StrutTypeFlags } from './bits';
 import { LUInt16, LUInt32, UInt8 } from './int';
 import { StrutTypeEnum, StrutTypeLookup } from './lookup';
 import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object';
-import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
-import { StrutAny, StrutParserInput, StrutType } from './type';
-import { StrutTypeVariable } from './var';
 import { StrutTypeOffset } from './offset';
-import { StrutBase } from './base';
+import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
+import { StrutAny, StrutType } from './type';
+import { StrutTypeVariable } from './var';
 
 const u8 = new UInt8('UInt8');
 const lu16 = new LUInt16('LUInt16');
@@ -83,7 +83,7 @@ export const bp = {
    *
    * @param count number of bytes to read
    */
-  bytes(count: number): StrutType<StrutParserInput> {
+  bytes(count: number): StrutTypeBytes {
     return new StrutTypeBytes(count);
   },
   /** Skip count number of bytes */
@@ -93,7 +93,7 @@ export const bp = {
   array,
 };
 
+export { StrutBase } from './base';
 export { BitStream } from './bitstream';
 export { toHex } from './hex';
 export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType } from './type';
-export { StrutBase } from './base';
