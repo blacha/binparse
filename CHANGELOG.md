@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/blacha/binparse/compare/v1.0.1...v1.1.0) (2021-02-23)
+
+
+### Features
+
+* adding refine to standard base ([4e234d3](https://github.com/blacha/binparse/commit/4e234d3bc7557178fa213a191a3094ae4d0ea392))
+
+
+
 ## [1.0.1](https://github.com/blacha/binparse/compare/v1.0.0...v1.0.1) (2020-09-16)
 
 
