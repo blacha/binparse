@@ -14,7 +14,7 @@ export class StrutTypeLookup<T> extends StrutBase<{ id: ValueOf<T>; name: keyof 
     this.type = type;
   }
 
-  get size() {
+  get size(): number {
     return this.type.size;
   }
 
@@ -38,7 +38,7 @@ export class StrutTypeEnum<T extends Record<string, string | number>> extends St
     this.type = type;
   }
 
-  get size() {
+  get size(): number {
     return this.type.size;
   }
 

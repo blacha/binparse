@@ -14,7 +14,7 @@ export class StrutTypeOffset<T> extends StrutBase<T> {
     this.offset = offset;
   }
 
-  get size() {
+  get size(): number {
     return this.type.size;
   }
 

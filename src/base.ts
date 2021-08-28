@@ -30,7 +30,6 @@ export abstract class StrutBase<T> implements StrutType<T> {
   }
 }
 
-
 export class StrutRefine<TOut, TIn> extends StrutBase<TOut> {
   cb: RefineCallBack<TIn, TOut>;
   input: StrutBase<TIn>;
