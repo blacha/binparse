@@ -27,12 +27,14 @@ o.spec('DataType', () => {
       const obj = bp.object('Test', { u8: bp.u8, lu16: bp.lu16 });
       const res = obj.parse([255, 1, 0], pkt);
       o(res).deepEquals({ u8: 255, lu16: 1 });
+      o(obj.size).equals(3);
     });
   });
 
   o.spec('Array', () => {
     o('should parse a array', () => {
       const obj = bp.bytes(4);
+      o(obj.size).equals(4);
       const res = obj.parse([1, 2, 3, 4], pkt);
       o(res).deepEquals([1, 2, 3, 4]);
       o(pkt.offset).equals(4);
@@ -45,6 +47,7 @@ o.spec('DataType', () => {
       });
       o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3] });
       o(pkt.offset).equals(3);
+      o(() => obj.size).throws(Error);
     });
     o('should parse a var array without offset', () => {
       const obj = bp.object('Obj', {
@@ -53,11 +56,13 @@ o.spec('DataType', () => {
       });
       o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3, 4] });
       o(pkt.offset).equals(4);
+      o(() => obj.size).throws(Error);
     });
   });
 
   o.spec('Int', () => {
     o('uint8', () => {
+      o(bp.u8.size).equals(1);
       const bytes = [100, 101, 102, 80, 83, 0];
       o(bp.u8.parse(bytes, pkt)).equals(100);
       o(pkt.offset).equals(1);
@@ -72,6 +77,7 @@ o.spec('DataType', () => {
     });
 
     o('uint16', () => {
+      o(bp.lu16.size).equals(2);
       const bytes = [36, 0, 102, 80, 83, 0];
       o(bp.lu16.parse(bytes, pkt)).equals(36);
       o(pkt.offset).equals(2);
@@ -80,6 +86,8 @@ o.spec('DataType', () => {
     });
 
     o('uint32', () => {
+      o(bp.lu32.size).equals(4);
+
       const bytes = [36, 0, 0, 0, 0, 0, 0, 1];
       o(bp.lu32.parse(bytes, pkt)).equals(36);
       o(pkt.offset).equals(4);

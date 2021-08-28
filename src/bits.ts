@@ -4,7 +4,7 @@ import { StrutParserInput, StrutParserContext, StrutType } from './type';
 
 export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T> {
   fields: { key: string; bits: number }[];
-  bytesRequired: number;
+  size: number;
 
   constructor(name: string, obj: T) {
     super('Bits:' + name);
@@ -14,18 +14,18 @@ export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T
       totalBits += bits;
       return { key, bits };
     });
-    this.bytesRequired = Math.ceil(totalBits / 8);
+    this.size = Math.ceil(totalBits / 8);
   }
 
   parse(bytes: StrutParserInput, pkt: StrutParserContext): T {
     const offset = pkt.offset;
 
     const output = {} as any;
-    const bs = new BitStream(bytes, offset, offset + this.bytesRequired);
+    const bs = new BitStream(bytes, offset, offset + this.size);
     for (const { key, bits } of this.fields) {
       output[key] = bs.bits(bits);
     }
-    pkt.offset += this.bytesRequired;
+    pkt.offset += this.size;
     return output;
   }
 }
@@ -37,6 +37,10 @@ export class StrutTypeFlags<T extends Record<string, number>> extends StrutBase<
     super('BitsFlags:' + name);
     this.type = type;
     this.fields = Object.entries(obj);
+  }
+
+  get size(): number {
+    return this.type.size;
   }
 
   parse(bytes: StrutParserInput, pkt: StrutParserContext): Record<keyof T, boolean> {

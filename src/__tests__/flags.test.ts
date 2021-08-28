@@ -7,4 +7,10 @@ o.spec('StrutTypeFlags', () => {
     const output = flags.raw([0b101]);
     o(output).deepEquals({ r: true, b: true });
   });
+
+  o('should calculate size', () => {
+    o(bp.flags('RGB', bp.u8, { r: 0x01 }).size).equals(1);
+    o(bp.flags('RGB', bp.lu16, { r: 0x01 }).size).equals(2);
+    o(bp.flags('RGB', bp.lu32, { r: 0x01 }).size).equals(4);
+  });
 });

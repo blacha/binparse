@@ -2,6 +2,7 @@ import { StrutBase } from './base';
 import { StrutParserContext, StrutParserInput } from './type';
 
 export class UInt8 extends StrutBase<number> {
+  size = 1;
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
     const offset = pkt.offset;
     pkt.offset++;
@@ -10,6 +11,7 @@ export class UInt8 extends StrutBase<number> {
 }
 
 export class LUInt16 extends StrutBase<number> {
+  size = 2;
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
     const offset = pkt.offset;
     const byteA = bytes[offset];
@@ -19,6 +21,7 @@ export class LUInt16 extends StrutBase<number> {
   }
 }
 export class LUInt32 extends StrutBase<number> {
+  size = 4;
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
     const offset = pkt.offset;
     const byteA = bytes[offset];

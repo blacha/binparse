@@ -3,6 +3,10 @@ import { RefineCallBack, StrutParserContext, StrutParserInput, StrutType } from 
 export abstract class StrutBase<T> implements StrutType<T> {
   /** Human friendly name of the parser */
   name: string;
+
+  /** number of bytes needed to read this object */
+  abstract size: number;
+
   constructor(name: string) {
     this.name = name;
   }
@@ -26,6 +30,7 @@ export abstract class StrutBase<T> implements StrutType<T> {
   }
 }
 
+
 export class StrutRefine<TOut, TIn> extends StrutBase<TOut> {
   cb: RefineCallBack<TIn, TOut>;
   input: StrutBase<TIn>;
@@ -34,6 +39,10 @@ export class StrutRefine<TOut, TIn> extends StrutBase<TOut> {
     super('Function:' + input.name);
     this.input = input;
     this.cb = cb;
+  }
+
+  get size(): number {
+    return this.input.size;
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): TOut {

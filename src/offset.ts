@@ -13,6 +13,11 @@ export class StrutTypeOffset<T> extends StrutBase<T> {
     this.type = type;
     this.offset = offset;
   }
+
+  get size() {
+    return this.type.size;
+  }
+
   parse(bytes: StrutParserInput, ctx: StrutParserContext): T {
     const readAt = this.offset.parse(bytes, ctx);
     if (readAt > bytes.length || readAt < 0) {

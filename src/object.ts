@@ -2,30 +2,30 @@ import { StrutBase } from './base';
 import { StrutAny, StrutParserContext, StrutType, StrutInfer, StrutParserInput } from './type';
 
 export class StrutTypeBytes extends StrutBase<StrutParserInput> {
-  count: number;
+  size: number;
 
   constructor(count: number) {
     super('Bytes:' + count);
-    this.count = count;
+    this.size = count;
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutParserInput {
-    const value = bytes.slice(ctx.offset, ctx.offset + this.count);
-    ctx.offset += this.count;
+    const value = bytes.slice(ctx.offset, ctx.offset + this.size);
+    ctx.offset += this.size;
     return value;
   }
 }
 
 export class StrutTypeSkip extends StrutBase<undefined> {
-  count: number;
+  size: number;
 
   constructor(count: number) {
     super('Skip:' + count);
-    this.count = count;
+    this.size = count;
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): undefined {
-    ctx.offset += this.count;
+    ctx.offset += this.size;
     return undefined;
   }
 }
@@ -38,6 +38,10 @@ export class StrutTypeArray<T> extends StrutBase<T[]> {
     super(`Array:${name}:${type.name}x${count}`);
     this.count = count;
     this.type = type;
+  }
+
+  get size(): number {
+    return this.count * this.type.size;
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): T[] {
@@ -60,6 +64,11 @@ export class StrutTypeArrayOffset<T> extends StrutBase<T[]> {
     this.type = type;
   }
 
+  /** Size cannot be calculated as it is variable */
+  get size(): number {
+    throw new Error('Unable to calculate size of dynamic object: ' + this.name);
+  }
+
   parse(bytes: StrutParserInput, ctx: StrutParserContext): T[] {
     const value: T[] = [];
     let packetLength = ctx.vars?.[this.lengthName];
@@ -79,6 +88,15 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   constructor(name: string, obj: T) {
     super(name);
     this.fields = Object.entries(obj);
+  }
+
+  private _size = -1;
+  get size(): number {
+    if (this._size > -1) return this._size;
+    let size = 0;
+    for (const ctx of this.fields) size += ctx[1].size;
+    this._size = size;
+    return this._size;
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): { [K in keyof T]: StrutInfer<T[K]> } {

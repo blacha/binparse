@@ -12,6 +12,10 @@ export class StrutTypeVariable extends StrutBase<number> {
     this.variable = variable;
   }
 
+  get size(): number {
+    return this.type.size;
+  }
+
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
     const value = this.type.parse(bytes, pkt);
     if (pkt.vars) {
