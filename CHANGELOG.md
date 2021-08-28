@@ -1,3 +1,13 @@
+# [1.2.0](https://github.com/blacha/binparse/compare/v1.1.0...v1.2.0) (2021-08-28)
+
+
+### Features
+
+* add .size to calculate the size of a strut ([#171](https://github.com/blacha/binparse/issues/171)) ([a4d1ab8](https://github.com/blacha/binparse/commit/a4d1ab8e50c4c22f63b0b65ada6635324c58692a))
+* add support for a number and BigInt based lu64 ([#172](https://github.com/blacha/binparse/issues/172)) ([e3b9527](https://github.com/blacha/binparse/commit/e3b952752a1d99aab26ea269551fa6cd91a5f1e6))
+
+
+
 # [1.1.0](https://github.com/blacha/binparse/compare/v1.0.1...v1.1.0) (2021-02-23)
 
 
