@@ -16,6 +16,8 @@ export interface StrutParserContext {
 }
 
 export interface StrutType<T> {
+  /** Number of bytes needed */
+  size: number;
   /** Name of the parser */
   name: string;
   /** Parse some bytes with the provided context */

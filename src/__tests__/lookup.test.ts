@@ -17,6 +17,7 @@ o.spec('StrutLookup', () => {
       }
       return undefined;
     });
+    o(lookup.size).equals(1);
     o(lookup.raw([0x01]).name).equals('bar');
     o(lookup.raw([0x01]).id).equals(1);
 
@@ -26,6 +27,7 @@ o.spec('StrutLookup', () => {
 
   o('should be typesafe in lookups', () => {
     const lookup = bp.enum('Foo', bp.u8, Foo);
+    o(lookup.size).equals(1);
     o(lookup.raw([0x01]).name).equals('bar');
     o(lookup.raw([0x01]).id).equals(1);
 

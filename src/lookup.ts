@@ -14,6 +14,10 @@ export class StrutTypeLookup<T> extends StrutBase<{ id: ValueOf<T>; name: keyof 
     this.type = type;
   }
 
+  get size(): number {
+    return this.type.size;
+  }
+
   parse(bytes: StrutParserInput, ctx: StrutParserContext): { id: ValueOf<T>; name: keyof T } {
     const id = this.type.parse(bytes, ctx) as any;
     const name = this.lookup(id);
@@ -33,6 +37,11 @@ export class StrutTypeEnum<T extends Record<string, string | number>> extends St
     this.enumeration = enumeration;
     this.type = type;
   }
+
+  get size(): number {
+    return this.type.size;
+  }
+
   parse(bytes: StrutParserInput, ctx: StrutParserContext): { id: ValueOf<T>; name: keyof T } {
     const id = this.type.parse(bytes, ctx) as any;
     const name = this.enumeration[id] as keyof T;
