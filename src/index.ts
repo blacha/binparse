@@ -1,16 +1,12 @@
 import { StrutBase } from './base';
 import { StrutTypeBits, StrutTypeFlags } from './bits';
-import { LUInt16, LUInt32, UInt8 } from './int';
+import { blu64, lu16, lu32, lu64, u8 } from './int';
 import { StrutTypeEnum, StrutTypeLookup } from './lookup';
 import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object';
 import { StrutTypeOffset } from './offset';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
 import { StrutAny, StrutType } from './type';
 import { StrutTypeVariable } from './var';
-
-const u8 = new UInt8('UInt8');
-const lu16 = new LUInt16('LUInt16');
-const lu32 = new LUInt32('LUInt32');
 
 /**
  * Read an fixed number of objects
@@ -39,6 +35,20 @@ export const bp = {
   lu16,
   /** Unsigned LE int 32 (4 bytes) */
   lu32,
+
+  /**
+   * Unsigned LE int 64 (8 bytes)
+   * 
+   * **Warning** this can and will loose precision if the number is > `Number.MAX_SAFE_INTEGER`
+   *
+   * When using 64 bit for offsets all memory offsets can fit into a float without loosing precision,
+   * as `Number.MAX_SAFE_INTEGER` is approx 9000TB in bytes
+   * 
+   * @see bp.blu64 for BigInt variant
+   */
+  lu64,
+  /** BigInt Unsigned LE 64 (8 bytes) */
+  blu64,
   /** Empty object with nothing to parse (0 Bytes) */
   empty: new StrutTypeObject('Empty', {}),
 
