@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/blacha/binparse/compare/v1.2.0...v1.2.1) (2021-08-29)
+
+
+### Bug Fixes
+
+* export Object strut type ([4f7c7cf](https://github.com/blacha/binparse/commit/4f7c7cf8005eed8f1c8227651d0a3327cb33e604))
+
+
+
 # [1.2.0](https://github.com/blacha/binparse/compare/v1.1.0...v1.2.0) (2021-08-28)
 
 
