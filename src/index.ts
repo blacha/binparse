@@ -38,12 +38,12 @@ export const bp = {
 
   /**
    * Unsigned LE int 64 (8 bytes)
-   * 
+   *
    * **Warning** this can and will loose precision if the number is > `Number.MAX_SAFE_INTEGER`
    *
    * When using 64 bit for offsets all memory offsets can fit into a float without loosing precision,
    * as `Number.MAX_SAFE_INTEGER` is approx 9000TB in bytes
-   * 
+   *
    * @see bp.blu64 for BigInt variant
    */
   lu64,
@@ -107,3 +107,4 @@ export { StrutBase } from './base';
 export { BitStream } from './bitstream';
 export { toHex } from './hex';
 export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType } from './type';
+export { StrutTypeObject } from './object';
