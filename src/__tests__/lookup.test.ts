@@ -1,5 +1,5 @@
 import o from 'ospec';
-import { bp } from '../index';
+import { bp } from '../index.js';
 
 enum Foo {
   bar = 1,

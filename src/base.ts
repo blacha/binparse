@@ -1,4 +1,4 @@
-import { RefineCallBack, StrutParserContext, StrutParserInput, StrutType } from './type';
+import { RefineCallBack, StrutParserContext, StrutParserInput, StrutType } from './type.js';
 
 export abstract class StrutBase<T> implements StrutType<T> {
   /** Human friendly name of the parser */

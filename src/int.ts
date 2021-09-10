@@ -1,5 +1,5 @@
-import { StrutBase } from './base';
-import { StrutParserContext, StrutParserInput } from './type';
+import { StrutBase } from './base.js';
+import { StrutParserContext, StrutParserInput } from './type.js';
 
 export class UInt8 extends StrutBase<number> {
   size = 1;

@@ -1,4 +1,4 @@
-import { StrutParserInput } from '../type';
+import { StrutParserInput } from '../type.js';
 
 /**
  * Powers of two for 0-63

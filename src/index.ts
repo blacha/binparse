@@ -1,12 +1,12 @@
-import { StrutBase } from './base';
-import { StrutTypeBits, StrutTypeFlags } from './bits';
-import { blu64, lu16, lu32, lu64, u8 } from './int';
-import { StrutTypeEnum, StrutTypeLookup } from './lookup';
-import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object';
-import { StrutTypeOffset } from './offset';
-import { StrutTypeStringFixed, StrutTypeStringNull } from './string';
-import { StrutAny, StrutType } from './type';
-import { StrutTypeVariable } from './var';
+import { StrutBase } from './base.js';
+import { StrutTypeBits, StrutTypeFlags } from './bits.js';
+import { blu64, lu16, lu32, lu64, u8 } from './int.js';
+import { StrutTypeEnum, StrutTypeLookup } from './lookup.js';
+import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object.js';
+import { StrutTypeOffset } from './offset.js';
+import { StrutTypeStringFixed, StrutTypeStringNull } from './string.js';
+import { StrutAny, StrutType } from './type.js';
+import { StrutTypeVariable } from './var.js';
 
 /**
  * Read an fixed number of objects
@@ -103,8 +103,8 @@ export const bp = {
   array,
 };
 
-export { StrutBase } from './base';
-export { BitStream } from './bitstream';
-export { toHex } from './hex';
-export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType } from './type';
-export { StrutTypeObject } from './object';
+export { StrutBase } from './base.js';
+export { BitStream } from './bitstream/index.js';
+export { toHex } from './hex.js';
+export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType } from './type.js';
+export { StrutTypeObject } from './object.js';

@@ -2,6 +2,8 @@
     "extends": "@linzjs/style/tsconfig.base.json",
     "compilerOptions": {
         "lib": ["ES2020"],
-        "outDir": "build"
+        "outDir": "build",
+        "module": "ES2020",
+        "moduleResolution": "Node"
     }
 }

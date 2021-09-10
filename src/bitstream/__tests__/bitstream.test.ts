@@ -1,5 +1,5 @@
 import o from 'ospec';
-import { BitStream } from '..';
+import { BitStream } from '../index.js';
 
 o.spec('BitStream', () => {
   function toNullString(str: string): Buffer {
