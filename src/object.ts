@@ -1,5 +1,5 @@
-import { StrutBase } from './base';
-import { StrutAny, StrutParserContext, StrutType, StrutInfer, StrutParserInput } from './type';
+import { StrutBase } from './base.js';
+import { StrutAny, StrutParserContext, StrutType, StrutInfer, StrutParserInput } from './type.js';
 
 export class StrutTypeBytes extends StrutBase<StrutParserInput> {
   size: number;

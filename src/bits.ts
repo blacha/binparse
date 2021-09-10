@@ -1,6 +1,6 @@
-import { StrutBase } from './base';
-import { BitStream } from './bitstream';
-import { StrutParserInput, StrutParserContext, StrutType } from './type';
+import { StrutBase } from './base.js';
+import { BitStream } from './bitstream/index.js';
+import { StrutParserInput, StrutParserContext, StrutType } from './type.js';
 
 export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T> {
   fields: { key: string; bits: number }[];

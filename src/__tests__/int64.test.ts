@@ -1,5 +1,5 @@
 import o from 'ospec';
-import { blu64, lu64 } from '../int';
+import { blu64, lu64 } from '../int.js';
 
 o.spec('Uint64', () => {
   o('should parse a uint 64', () => {
