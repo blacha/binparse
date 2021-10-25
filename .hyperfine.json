@@ -1,3 +1,3 @@
 [
-    {"name": "Chunk Reading", "command": "node packages/core/build/__benchmark__/benchmark.js"}
+    {"name": "Reading", "command": "echo ''"}
 ]
