@@ -11,14 +11,14 @@ const PointsParser = bp.object('SimpleObject', {
 });
 
 const n = 1000;
-const buf = Buffer.alloc(4 + n * 2 * 2);
+const buf = Buffer.alloc(4 + n * 4);
 
 buf.writeUInt32LE(n, 0);
 for (let i = 0; i < n; i++) {
-  buf.writeUInt16LE(123, i * 4);
-  buf.writeUInt16LE(456, i * 4 + 2);
+  buf.writeUInt16LE(123, 4 + i * 4);
+  buf.writeUInt16LE(456, 4 + i * 4 + 2);
 }
 
-for (let i = 0; i < 1_000_000; i++) {
+for (let i = 0; i < 1_000; i++) {
   PointsParser.raw(buf);
 }
