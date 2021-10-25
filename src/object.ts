@@ -27,8 +27,7 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
     const value = {} as Record<string, unknown>;
     for (const kv of this.fields) {
-      const res = kv.parser.parse(bytes, ctx, value);
-      if (res != null) value[kv.key] = res;
+      value[kv.key] = kv.parser.parse(bytes, ctx, value);
     }
     return value as StrutReturnType<T>;
   }
