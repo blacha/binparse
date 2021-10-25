@@ -9,7 +9,6 @@ import { StrutTypeOffset } from './offset.js';
 import { StrutTypeSkip } from './skip.js';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string.js';
 import { StrutAny, StrutType } from './type.js';
-import { StrutTypeVariable } from './var.js';
 
 /**
  * Read an fixed number of objects
@@ -60,10 +59,6 @@ export const bp = {
     return new StrutTypeOffset(offset, type);
   },
 
-  /** Variable to read into parser context, used for arrays of variable length */
-  variable(name: string, type: StrutType<number> = u8): StrutTypeVariable {
-    return new StrutTypeVariable(name, type);
-  },
   /**
    * Read a string
    * @param length max number of bytes to read if defined, otherwise read util finding a null or end of buffer

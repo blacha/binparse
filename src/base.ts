@@ -11,7 +11,7 @@ export abstract class StrutBase<T> implements StrutType<T> {
     this.name = name;
   }
 
-  abstract parse(bytes: StrutParserInput, pkt: StrutParserContext): T;
+  abstract parse(bytes: StrutParserInput, pkt: StrutParserContext, currentObject?: Record<string, unknown>): T;
 
   /** Read in raw instance of this object */
   raw(bytes: StrutParserInput, offset = 0): T {

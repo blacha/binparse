@@ -8,10 +8,9 @@ const PointParser = bp.object('Point', {
 });
 
 const PointsParser = bp.object('SimpleObject', {
-  // Number of points to read
-  length: bp.variable('len', bp.u8),
+  length: bp.u8,
   // Array of points with length "len"
-  points: bp.array('Points', PointParser, 'len', false),
+  points: bp.array('Points', PointParser, 'length', false),
 });
 
 const points = PointsParser.read([0x01, 0x01, 0x00, 0x02, 0x00]);

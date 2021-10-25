@@ -28,6 +28,9 @@ export class StrutTypeArrayOffset<T> extends StrutBase<T[]> {
   /** Name of the variable to use as the length */
   lengthName: string;
 
+  /** Since we reference the current object we need to make sure currentObject is passed through */
+  isLookupRequired = true;
+
   constructor(name: string, type: StrutType<T>, lengthVar: string, isMaxLength: boolean) {
     super('Array:Offset:' + name);
     this.isMaxLength = isMaxLength;
@@ -40,10 +43,12 @@ export class StrutTypeArrayOffset<T> extends StrutBase<T[]> {
     throw new Error('Unable to calculate size of dynamic object: ' + this.name);
   }
 
-  parse(bytes: StrutParserInput, ctx: StrutParserContext): T[] {
+  parse(bytes: StrutParserInput, ctx: StrutParserContext, currentObject: Record<string, unknown>): T[] {
     const value: T[] = [];
-    let packetLength = ctx.vars?.[this.lengthName];
-    if (packetLength == null) throw new Error(`${this.name}: Missing variable a "${this.lengthName}"`);
+    let packetLength = currentObject?.[this.lengthName];
+    if (packetLength == null || typeof packetLength !== 'number') {
+      throw new Error(`${this.name}: Missing variable a "${this.lengthName}"`);
+    }
     if (this.isMaxLength) packetLength -= ctx.offset - ctx.startOffset;
     for (let i = 0; i < packetLength; i++) value.push(this.type.parse(bytes, ctx));
     return value;

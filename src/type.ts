@@ -21,13 +21,16 @@ export interface StrutType<T> {
   /** Name of the parser */
   name: string;
   /** Parse some bytes with the provided context */
-  parse(bytes: StrutParserInput, pkt: StrutParserContext): T;
+  parse(bytes: StrutParserInput, pkt: StrutParserContext, currentObject?: Record<string, unknown>): T;
 
   /** Read in the data throwing away any parser information */
   raw(bytes: StrutParserInput, offset?: number): T;
 
   /** Refine the type using a custom function */
   refine<TOut>(cb: RefineCallBack<T, TOut>): StrutType<TOut>;
+
+  /** Are variables required by this object */
+  isLookupRequired?: boolean;
 }
 
 export type RefineCallBack<TIn, TOut> = (value: TIn, bytes?: StrutParserInput, pkt?: StrutParserContext) => TOut;

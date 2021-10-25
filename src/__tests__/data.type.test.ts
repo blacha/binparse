@@ -42,7 +42,7 @@ o.spec('DataType', () => {
 
     o('should parse a var array with offset', () => {
       const obj = bp.object('Obj', {
-        len: bp.variable('len'),
+        len: bp.u8,
         varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', true),
       });
       o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3] });
@@ -51,7 +51,7 @@ o.spec('DataType', () => {
     });
     o('should parse a var array without offset', () => {
       const obj = bp.object('Obj', {
-        len: bp.variable('len'),
+        len: bp.u8,
         varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', false),
       });
       o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3, 4] });
