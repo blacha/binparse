@@ -1,4 +1,6 @@
 [
-    {"name": "Reading Complex", "command": "node build/src/__benchmark__/benchmark.complex.js"},
-    {"name": "Reading UInt", "command": "node build/src/__benchmark__/benchmark.int.js"}
+    {"name": "Packet", "command": "node build/src/__benchmark__/benchmark.packet.js"},
+    {"name": "UInt", "command": "node build/src/__benchmark__/benchmark.int.js"},
+    {"name": "Array", "command": "node build/src/__benchmark__/benchmark.array.js"}
+
 ]
