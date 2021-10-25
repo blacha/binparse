@@ -27,7 +27,7 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
     const value = {} as Record<string, unknown>;
     for (const kv of this.fields) {
-      const res = kv.parser.parse(bytes, ctx);
+      const res = kv.parser.parse(bytes, ctx, value);
       if (res != null) value[kv.key] = res;
     }
     return value as StrutReturnType<T>;
@@ -46,17 +46,16 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
     super(name);
 
     const entries = Object.entries(obj);
-    let needsEscape;
+    let isLookupRequired = false;
     for (const [key, parser] of entries) {
-      if (key.includes('"')) needsEscape = true;
-      if (parser.isLookupRequired) needsEscape = true;
+      if (parser.isLookupRequired) isLookupRequired = true;
       this.fields.push({ key, parser });
     }
 
     // No point generating a function for no entries
     if (entries.length === 0) return;
 
-    if (needsEscape) this.generateObjectAssign();
+    if (isLookupRequired) this.generateObjectAssign();
     else this.generateSingleObject();
   }
   /**
@@ -67,10 +66,10 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
   generateSingleObject(): void {
     const parsers: StrutAny[] = [];
 
-    let body = 'return {';
+    let body = '"use strict";return {';
     for (let i = 0; i < this.fields.length; i++) {
       parsers.push(this.fields[i].parser);
-      body += ` "${this.fields[i].key}": _bp[${i}].parse(buf, ctx),`;
+      body += ` ${JSON.stringify(this.fields[i].key)}: _bp[${i}].parse(buf, ctx),`;
     }
     body += ' };';
 
@@ -83,7 +82,7 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
    * including horrible names like `'` or `"'\``
    */
   generateObjectAssign(): void {
-    let body = 'const ret = {};';
+    let body = '"use strict"; const ret = {};';
     for (let i = 0; i < this.fields.length; i++) {
       body += `const _bp_${i} = _bp[${i}];\n`;
       body += `ret[_bp_${i}.key] = _bp_${i}.parser.parse(buf, ctx, ret)\n`;
