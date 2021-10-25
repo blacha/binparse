@@ -19,6 +19,6 @@ for (let i = 0; i < n; i++) {
   buf.writeUInt32LE(456, 4 + i * 4 + 2);
 }
 
-for (let i = 0; i < 1_000; i++) {
+for (let i = 0; i < 25_000; i++) {
   PointsParser.read(buf);
 }
