@@ -1,3 +1,21 @@
+# [1.3.0](https://github.com/blacha/binparse/compare/v1.2.1...v1.3.0) (2021-10-25)
+
+
+### Features
+
+* benchmark on every push to master ([4b40a79](https://github.com/blacha/binparse/commit/4b40a79226e05cdc7eeb7d7ceb8be639037f7e70))
+* generate a function for improved performance ([30d4cd7](https://github.com/blacha/binparse/commit/30d4cd7a5ea184507f3c32b044292a563bd1cb8c))
+* improve continous benchmarks ([f2267c0](https://github.com/blacha/binparse/commit/f2267c0aa8b80d8003e17dd4494abefd85e0a6c1))
+* only add keys to objects if they exist ([60f47ca](https://github.com/blacha/binparse/commit/60f47ca691cfa6cec70cf1256144fbe32a1f50e3))
+* track performance of int ([eafa59c](https://github.com/blacha/binparse/commit/eafa59cb88a9b937be662fd0d97699a0fcaa7180))
+
+
+### Performance Improvements
+
+* minor adjustments to how ints and objects are read ([f1dc88e](https://github.com/blacha/binparse/commit/f1dc88ef547f761d229dd29b2f5943b59a7893c5))
+
+
+
 ## [1.2.1](https://github.com/blacha/binparse/compare/v1.2.0...v1.2.1) (2021-08-29)
 
 
