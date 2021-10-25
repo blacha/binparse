@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/blacha/binparse/compare/v1.3.0...v1.3.1) (2021-10-25)
+
+
+### Features
+
+* include the field names in the object ([304d933](https://github.com/blacha/binparse/commit/304d93306badac0a38e0bfba19742b6574c4fbc0))
+
+
+
 # [1.3.0](https://github.com/blacha/binparse/compare/v1.2.1...v1.3.0) (2021-10-25)
 
 
