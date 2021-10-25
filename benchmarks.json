@@ -1,0 +1,44 @@
+[
+  {
+    "hash": "14f38bdbea37a760dbf95e72eeb26e02fbc94666",
+    "createdAt": "2021-10-25T01:41:36.149Z",
+    "results": [
+      {
+        "name": "Packet",
+        "count": 10,
+        "command": "node build/src/__benchmark__/benchmark.packet.js",
+        "mean": 0.33025335571,
+        "stddev": 0.01855175539166476,
+        "median": 0.32607865921,
+        "user": 0.329726405,
+        "system": 0.01738013,
+        "min": 0.30740809521000007,
+        "max": 0.36351528721000004
+      },
+      {
+        "name": "UInt",
+        "count": 19,
+        "command": "node build/src/__benchmark__/benchmark.int.js",
+        "mean": 0.1516901014007895,
+        "stddev": 0.004968763958814954,
+        "median": 0.150982437085,
+        "user": 0.14273139578947366,
+        "system": 0.015971797894736843,
+        "min": 0.142781565085,
+        "max": 0.160839976085
+      },
+      {
+        "name": "Array",
+        "count": 16,
+        "command": "node build/src/__benchmark__/benchmark.array.js",
+        "mean": 0.19285646857750005,
+        "stddev": 0.012920544062814994,
+        "median": 0.19008534664000004,
+        "user": 0.20260496999999997,
+        "system": 0.015731362500000002,
+        "min": 0.17631663914000004,
+        "max": 0.22234300014000002
+      }
+    ]
+  }
+]
