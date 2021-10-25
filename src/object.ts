@@ -102,7 +102,8 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   parse(bytes: StrutParserInput, ctx: StrutParserContext): { [K in keyof T]: StrutInfer<T[K]> } {
     const value = {} as any;
     for (const [key, parser] of this.fields) {
-      value[key] = parser.parse(bytes, ctx);
+      const res = parser.parse(bytes, ctx);
+      if (res != null) value[key] = res;
       if (ctx.offset > bytes.length) throw new Error(`${this.name}: Buffer Overflow`);
     }
     return value;
