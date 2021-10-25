@@ -74,3 +74,10 @@ value.isGreen; // false
 value.isBlue; // true
 value.isAlpha; // false
 ```
+
+
+## Performance
+
+Continuos performance monitoring is done using [hyperfine](https://github.com/sharkdp/hyperfine) and [hyperfine-action](https://github.com/blacha/hyperfine-action)
+
+Results can be found at [benchmarks.html](https://blacha.github.io/binparse/benchmarks.html)
