@@ -6,8 +6,8 @@ const PointParser = bp.object('Point', {
 });
 
 const PointsParser = bp.object('SimpleObject', {
-  length: bp.variable('len', bp.lu32),
-  points: bp.array('Points', PointParser, 'len'),
+  length: bp.lu32,
+  points: bp.array('Points', PointParser, 'length'),
 });
 
 const n = 1000;
@@ -19,6 +19,6 @@ for (let i = 0; i < n; i++) {
   buf.writeUInt32LE(456, 4 + i * 4 + 2);
 }
 
-for (let i = 0; i < 1_000; i++) {
+for (let i = 0; i < 20_000; i++) {
   PointsParser.raw(buf);
 }

@@ -34,35 +34,70 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   }
 }
 
+/**
+ * Generate a object parser this is significantly faster than `StrutTypeObject`
+ * initial benchmarks put it at almost 10x faster
+ */
 export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
   type: StrutType<T>;
   fields: { key: string; parser: StrutAny }[] = [];
-  parsers: StrutAny[];
 
   constructor(name: string, obj: T) {
     super(name);
-    this.parsers = [];
+
     const entries = Object.entries(obj);
+    let needsEscape;
+    for (const [key, parser] of entries) {
+      if (key.includes('"')) needsEscape = true;
+      if (parser.isLookupRequired) needsEscape = true;
+      this.fields.push({ key, parser });
+    }
+
     // No point generating a function for no entries
     if (entries.length === 0) return;
+
+    if (needsEscape) this.generateObjectAssign();
+    else this.generateSingleObject();
+  }
+  /**
+   * This method is slightly faster than `generateObjectAssign` but generates single line return
+   *
+   * Basic testing shows it to be roughly 20% faster than the other method
+   */
+  generateSingleObject(): void {
+    const parsers: StrutAny[] = [];
+
     let body = 'return {';
-    for (let i = 0; i < entries.length; i++) {
-      const [key, parser] = entries[i];
-      this.fields.push({ key, parser });
-      this.parsers.push(parser);
-      body += ` ${key}: _bp[${i}].parse(buf, ctx),`;
+    for (let i = 0; i < this.fields.length; i++) {
+      parsers.push(this.fields[i].parser);
+      body += ` "${this.fields[i].key}": _bp[${i}].parse(buf, ctx),`;
     }
     body += ' };';
 
     const func = new Function('_bp', 'buf', 'ctx', body);
-    this.parse = func.bind(null, this.parsers);
+    this.parse = func.bind(null, parsers);
+  }
+
+  /**
+   * This method is slightly slower object creation than `generateSingleObject` but will work with any object name
+   * including horrible names like `'` or `"'\``
+   */
+  generateObjectAssign(): void {
+    let body = 'const ret = {};';
+    for (let i = 0; i < this.fields.length; i++) {
+      body += `const _bp_${i} = _bp[${i}];\n`;
+      body += `ret[_bp_${i}.key] = _bp_${i}.parser.parse(buf, ctx, ret)\n`;
+    }
+    body += `return ret`;
+    const func = new Function('_bp', 'buf', 'ctx', body);
+    this.parse = func.bind(null, this.fields);
   }
 
   private _size = -1;
   get size(): number {
     if (this._size > -1) return this._size;
     let size = 0;
-    for (const ctx of this.parsers) size += ctx.size;
+    for (const ctx of this.fields) size += ctx.parser.size;
     this._size = size;
     return this._size;
   }

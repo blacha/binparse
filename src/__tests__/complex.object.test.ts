@@ -21,7 +21,23 @@ o.spec('ComplexStruts', () => {
     const res = parser.raw(pkt);
 
     o(res.packetId).equals(38);
-    o(res.chatKind).equals(4);
+    o(res['chatKind']).equals(4);
     o(res.name).equals('[administrator]');
+  });
+
+  o('should support weird item names', () => {
+    const pkt = Buffer.from('01020304', 'hex');
+    const parser = bp.object('Message', {
+      "'": bp.u8,
+      'chat-kind': bp.u8,
+      '"message"': bp.u8,
+      '`': bp.u8,
+    });
+
+    const res = parser.raw(pkt);
+    o(res["'"]).equals(1);
+    o(res['chat-kind']).equals(2);
+    o(res['"message"']).equals(3);
+    o(res['`']).equals(4);
   });
 });
