@@ -2,7 +2,7 @@ import o from 'ospec';
 import 'source-map-support/register.js';
 import { StrutParserContext } from '../type.js';
 import { bp } from '../index.js';
-import { StrutTypeArrayOffset } from '../object.js';
+import { StrutTypeArrayOffset } from '../array.js';
 
 o.spec('DataType', () => {
   let pkt: StrutParserContext;

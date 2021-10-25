@@ -1,9 +1,12 @@
+import { StrutTypeArray, StrutTypeArrayOffset } from './array.js';
 import { StrutBase } from './base.js';
 import { StrutTypeBits, StrutTypeFlags } from './bits.js';
+import { StrutTypeBytes } from './bytes.js';
 import { blu64, lu16, lu32, lu64, u8 } from './int.js';
 import { StrutTypeEnum, StrutTypeLookup } from './lookup.js';
-import { StrutTypeArray, StrutTypeArrayOffset, StrutTypeBytes, StrutTypeObject, StrutTypeSkip } from './object.js';
+import { StrutTypeObject } from './object.js';
 import { StrutTypeOffset } from './offset.js';
+import { StrutTypeSkip } from './skip.js';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string.js';
 import { StrutAny, StrutType } from './type.js';
 import { StrutTypeVariable } from './var.js';
