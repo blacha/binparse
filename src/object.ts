@@ -80,33 +80,35 @@ export class StrutTypeArrayOffset<T> extends StrutBase<T[]> {
   }
 }
 
-export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<{
-  [K in keyof T]: StrutInfer<T[K]>;
-}> {
+export type StrutReturnType<T> = { [K in keyof T]: StrutInfer<T[K]> };
+
+export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
   type: StrutType<T>;
-  fields: [string, StrutAny][];
+  fields: { key: string; parser: StrutAny }[];
 
   constructor(name: string, obj: T) {
     super(name);
-    this.fields = Object.entries(obj);
+    this.fields = [];
+    for (const [key, parser] of Object.entries(obj)) {
+      this.fields.push({ key, parser });
+    }
   }
 
   private _size = -1;
   get size(): number {
     if (this._size > -1) return this._size;
     let size = 0;
-    for (const ctx of this.fields) size += ctx[1].size;
+    for (const ctx of this.fields) size += ctx.parser.size;
     this._size = size;
     return this._size;
   }
 
-  parse(bytes: StrutParserInput, ctx: StrutParserContext): { [K in keyof T]: StrutInfer<T[K]> } {
-    const value = {} as any;
-    for (const [key, parser] of this.fields) {
-      const res = parser.parse(bytes, ctx);
-      if (res != null) value[key] = res;
-      if (ctx.offset > bytes.length) throw new Error(`${this.name}: Buffer Overflow`);
+  parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
+    const value = {} as Record<string, unknown>;
+    for (const kv of this.fields) {
+      const res = kv.parser.parse(bytes, ctx);
+      if (res != null) value[kv.key] = res;
     }
-    return value;
+    return value as StrutReturnType<T>;
   }
 }

@@ -13,10 +13,10 @@ export class UInt8 extends StrutBase<number> {
 export class LUInt16 extends StrutBase<number> {
   size = 2;
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
-    const offset = pkt.offset;
-    const byteA = bytes[offset];
-    const byteB = bytes[offset + 1] << 8;
-    pkt.offset += this.size;
+    let offset = pkt.offset;
+    const byteA = bytes[offset++];
+    const byteB = bytes[offset++] << 8;
+    pkt.offset += 2;
     return byteA | byteB;
   }
 }
@@ -24,12 +24,12 @@ export class LUInt16 extends StrutBase<number> {
 export class LUInt32 extends StrutBase<number> {
   size = 4;
   parse(bytes: StrutParserInput, pkt: StrutParserContext): number {
-    const offset = pkt.offset;
-    const byteA = bytes[offset];
-    const byteB = bytes[offset + 1] << 8;
-    const byteC = bytes[offset + 2] << 16;
-    const byteD = bytes[offset + 3] * 0x1000000;
-    pkt.offset += this.size;
+    let offset = pkt.offset;
+    const byteA = bytes[offset++];
+    const byteB = bytes[offset++] << 8;
+    const byteC = bytes[offset++] << 16;
+    const byteD = bytes[offset++] * 0x1000000;
+    pkt.offset = offset;
     return (byteA | byteB | byteC) + byteD;
   }
 }
