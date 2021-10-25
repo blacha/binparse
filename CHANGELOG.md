@@ -1,3 +1,14 @@
+# [2.0.0](https://github.com/blacha/binparse/compare/v1.3.1...v2.0.0) (2021-10-25)
+
+
+### Features
+
+* greatly increase the number of points required for the array benchmark ([bfee799](https://github.com/blacha/binparse/commit/bfee799f0f5be51f029fcfdf4923ad68c922abeb))
+* remove variable object type lookups can now be done on the parent object ([4147f41](https://github.com/blacha/binparse/commit/4147f41c8821638383d5de334f5e148ab74d8dc4))
+* support weird key names in object functions eg `"` ([fa695a5](https://github.com/blacha/binparse/commit/fa695a58eeb948df8cb9bbf06ed397abbc87089b))
+
+
+
 ## [1.3.1](https://github.com/blacha/binparse/compare/v1.3.0...v1.3.1) (2021-10-25)
 
 
