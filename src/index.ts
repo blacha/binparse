@@ -4,7 +4,7 @@ import { StrutTypeBits, StrutTypeFlags } from './bits.js';
 import { StrutTypeBytes } from './bytes.js';
 import { blu64, lu16, lu32, lu64, u8 } from './int.js';
 import { StrutTypeEnum, StrutTypeLookup } from './lookup.js';
-import { StrutTypeObject } from './object.js';
+import { StrutTypeObject, StrutTypeObjectGenerated } from './object.js';
 import { StrutTypeOffset } from './offset.js';
 import { StrutTypeSkip } from './skip.js';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string.js';
@@ -79,7 +79,14 @@ export const bp = {
   flags<T extends Record<string, number>>(name: string, type: StrutType<number>, flags: T): StrutTypeFlags<T> {
     return new StrutTypeFlags(name, type, flags);
   },
-  object<T extends Record<string, StrutAny>>(name: string, obj: T): StrutTypeObject<T> {
+  /**
+   * Generates a parser for a object type
+   * If issues occur see @see bp.static for a non code generated object
+   */
+  object<T extends Record<string, StrutAny>>(name: string, obj: T): StrutTypeObjectGenerated<T> {
+    return new StrutTypeObjectGenerated(name, obj);
+  },
+  static<T extends Record<string, StrutAny>>(name: string, obj: T): StrutTypeObject<T> {
     return new StrutTypeObject(name, obj);
   },
   /** Convert a number lookup into a human friendly output */

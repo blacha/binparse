@@ -33,3 +33,42 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
     return value as StrutReturnType<T>;
   }
 }
+
+export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
+  type: StrutType<T>;
+  parsers: StrutAny[];
+
+  _parse: (bytes: StrutParserInput, ctx: StrutParserContext, parsers: StrutAny[]) => StrutReturnType<T>;
+
+  constructor(name: string, obj: T) {
+    super(name);
+    this.parsers = [];
+    const entries = Object.entries(obj);
+    // No point generating a function for no entries
+    if (entries.length === 0) return;
+    let body = 'return {';
+    for (let i = 0; i < entries.length; i++) {
+      const [key, parser] = entries[i];
+      this.parsers.push(parser);
+      body += ` ${key}: _bp[${i}].parse(buf, ctx),`;
+    }
+    body += ' };';
+
+    const func = new Function('_bp', 'buf', 'ctx', body);
+    this.parse = func.bind(null, this.parsers);
+  }
+
+  private _size = -1;
+  get size(): number {
+    if (this._size > -1) return this._size;
+    let size = 0;
+    for (const ctx of this.parsers) size += ctx.size;
+    this._size = size;
+    return this._size;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
+    return {} as StrutReturnType<T>;
+  }
+}
