@@ -80,9 +80,9 @@ export class StrutTypeArrayOffset<T> extends StrutBase<T[]> {
   }
 }
 
-export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<
-  { [K in keyof T]: StrutInfer<T[K]> }
-> {
+export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<{
+  [K in keyof T]: StrutInfer<T[K]>;
+}> {
   type: StrutType<T>;
   fields: [string, StrutAny][];
 
