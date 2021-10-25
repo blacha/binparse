@@ -36,9 +36,8 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
 
 export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
   type: StrutType<T>;
+  fields: { key: string; parser: StrutAny }[] = [];
   parsers: StrutAny[];
-
-  _parse: (bytes: StrutParserInput, ctx: StrutParserContext, parsers: StrutAny[]) => StrutReturnType<T>;
 
   constructor(name: string, obj: T) {
     super(name);
@@ -49,6 +48,7 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
     let body = 'return {';
     for (let i = 0; i < entries.length; i++) {
       const [key, parser] = entries[i];
+      this.fields.push({ key, parser });
       this.parsers.push(parser);
       body += ` ${key}: _bp[${i}].parse(buf, ctx),`;
     }
