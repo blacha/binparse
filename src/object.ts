@@ -47,6 +47,10 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
     const entries = Object.entries(obj);
     let isLookupRequired = false;
     for (const [key, parser] of entries) {
+      /**
+       * Determine if any sub objects need a reference to the current object during parsing as it is slightly slower
+       * try and avoid it if possible
+       */
       if (parser.isLookupRequired) isLookupRequired = true;
       this.fields.push({ key, parser });
     }
@@ -61,34 +65,39 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
    * This method is slightly faster than `generateObjectAssign` but generates single line return
    *
    * Basic testing shows it to be roughly 20% faster than the other method
+   *
+   * @see StrutTypeObjectGenerated.generateObjectAssign
    */
   generateSingleObject(): void {
     const parsers: StrutAny[] = [];
 
-    let body = '"use strict";return {';
+    let body = '"use strict"; return {';
     for (let i = 0; i < this.fields.length; i++) {
       parsers.push(this.fields[i].parser);
       body += ` ${JSON.stringify(this.fields[i].key)}: _bp[${i}].parse(buf, ctx),`;
     }
     body += ' };';
-
     const func = new Function('_bp', 'buf', 'ctx', body);
     this.parse = func.bind(null, parsers);
   }
 
   /**
-   * This method is slightly slower object creation than `generateSingleObject` but will work with any object name
-   * including horrible names like `'` or `"'\``
+   * This method is slightly slower object creation than `generateSingleObject`
+   * It is needed when sub objects want to reference the object being parsed
+   *
+   * @see StrutTypeObjectGenerated.generateSingleObject
    */
   generateObjectAssign(): void {
-    let body = '"use strict"; const ret = {};';
+    const parsers: StrutAny[] = [];
+
+    let body = '"use strict"; const ret = {};\n';
     for (let i = 0; i < this.fields.length; i++) {
-      body += `const _bp_${i} = _bp[${i}];\n`;
-      body += `ret[_bp_${i}.key] = _bp_${i}.parser.parse(buf, ctx, ret)\n`;
+      parsers.push(this.fields[i].parser);
+      body += `ret[${JSON.stringify(this.fields[i].key)}] = _bp[${i}].parse(buf, ctx, ret)\n`;
     }
     body += `return ret`;
     const func = new Function('_bp', 'buf', 'ctx', body);
-    this.parse = func.bind(null, this.fields);
+    this.parse = func.bind(null, parsers);
   }
 
   private _size = -1;

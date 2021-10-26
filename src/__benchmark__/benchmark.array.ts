@@ -20,5 +20,5 @@ for (let i = 0; i < n; i++) {
 }
 
 for (let i = 0; i < 25_000; i++) {
-  PointsParser.read(buf);
+  PointsParser.raw(buf);
 }
