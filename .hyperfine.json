@@ -1,6 +1,6 @@
 [
-    {"name": "Packet", "command": "node build/src/__benchmark__/benchmark.packet.js"},
-    {"name": "UInt", "command": "node build/src/__benchmark__/benchmark.int.js"},
-    {"name": "Array", "command": "node build/src/__benchmark__/benchmark.array.js"}
+    {"name": "Packet x 100,000", "command": "node build/src/__benchmark__/benchmark.packet.js"},
+    {"name": "UInt x 5,000,000", "command": "node build/src/__benchmark__/benchmark.int.js"},
+    {"name": "Array x 25,000", "command": "node build/src/__benchmark__/benchmark.array.js"}
 
 ]
