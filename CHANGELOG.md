@@ -1,3 +1,23 @@
+## [2.0.1](https://github.com/blacha/binparse/compare/v2.0.0...v2.0.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* make both object implementations the same ([631de17](https://github.com/blacha/binparse/commit/631de17fb905301090b4e8381975080ae6cc7f74))
+* use "use strict"; to prevent function leakage ([152543b](https://github.com/blacha/binparse/commit/152543b6b5b48b7d512bc04f95d3d3ca744b85e0))
+
+
+### Features
+
+* make the two object generators more similar ([3a7bfab](https://github.com/blacha/binparse/commit/3a7bfabda814271ba3bae7379477e469468a6245))
+
+
+### Performance Improvements
+
+* rename all benchmarks to reset their stats ([7c9e590](https://github.com/blacha/binparse/commit/7c9e590a4246f3b19d9d0c741f20e5008e658993))
+
+
+
 # [2.0.0](https://github.com/blacha/binparse/compare/v1.3.1...v2.0.0) (2021-10-25)
 
 
