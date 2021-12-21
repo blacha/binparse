@@ -27,7 +27,7 @@
     "build/src"
   ],
   "devDependencies": {
-    "@linzjs/style": "^3.5.0",
+    "@linzjs/style": "^3.6.0",
     "@types/node": "^14.14.36",
     "@types/ospec": "^4.0.2",
     "conventional-changelog-cli": "^2.1.1",
