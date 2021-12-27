@@ -30,7 +30,7 @@
     "@linzjs/style": "^3.5.0",
     "@types/node": "^14.14.36",
     "@types/ospec": "^4.0.2",
-    "conventional-changelog-cli": "^2.1.1",
+    "conventional-changelog-cli": "^2.2.2",
     "ospec": "^4.1.1",
     "source-map-support": "^0.5.20"
   }
