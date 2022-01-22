@@ -32,6 +32,6 @@
     "@types/ospec": "^4.0.2",
     "conventional-changelog-cli": "^2.1.1",
     "ospec": "^4.1.1",
-    "source-map-support": "^0.5.20"
+    "source-map-support": "^0.5.21"
   }
 }
