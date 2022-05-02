@@ -1,4 +1,5 @@
 import { StrutTypeArray, StrutTypeArrayOffset } from './array.js';
+import { StrutTypeAt } from './at.js';
 import { StrutBase } from './base.js';
 import { StrutTypeBits, StrutTypeFlags } from './bits.js';
 import { StrutTypeBytes } from './bytes.js';
@@ -60,6 +61,22 @@ export const bp = {
   },
 
   /**
+   * Read at a specific offset since the start of the object
+   *
+   * @example
+   * ```typescript
+   * bp.object({
+   *  id: bp.lu32,
+   *  // skip 0x04 -> 0x100
+   *  message: bp.at(0x100, bp.string())
+   * })
+   * ```
+   */
+  at<T>(offset: number, type: StrutType<T>): StrutTypeAt<T> {
+    return new StrutTypeAt<T>(offset, type);
+  },
+
+  /**
    * Read a string
    * @param length max number of bytes to read if defined, otherwise read util finding a null or end of buffer
    */
@@ -111,5 +128,5 @@ export const bp = {
 export { StrutBase } from './base.js';
 export { BitStream } from './bitstream/index.js';
 export { toHex } from './hex.js';
-export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType } from './type.js';
+export { StrutAny, StrutEval, StrutInfer, StrutParserContext, StrutType, StrutParserInput } from './type.js';
 export { StrutTypeObject } from './object.js';
