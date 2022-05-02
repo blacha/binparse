@@ -109,6 +109,11 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
     return this._size;
   }
 
+  /** Force the size of this object */
+  setSize(size: number): void {
+    this._size = size;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
     return {} as StrutReturnType<T>;
