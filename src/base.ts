@@ -15,7 +15,7 @@ export abstract class StrutBase<T> implements StrutType<T> {
 
   /** Read in raw instance of this object */
   raw(bytes: StrutParserInput, offset = 0): T {
-    return this.parse(bytes, { offset, startOffset: 0 });
+    return this.parse(bytes, { offset, startOffset: offset });
   }
 
   /** Read in a new instance of this object */
