@@ -75,6 +75,17 @@ value.isBlue; // true
 value.isAlpha; // false
 ```
 
+## Explicit offsets
+
+```typescript
+import { bp } from 'binparse';
+
+const sparseParser = bp.object('Sparse', {
+  first: bp.at(0x30, bp.lu32), // Read a lu32 at 0x30
+  second: bp.at(0x60, bp.lu32), // Read a lu32 at 0x60
+})
+sparseParser.size // 0x64 
+```
 
 ## Performance
 
