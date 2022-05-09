@@ -37,4 +37,16 @@ o.spec('ExplicitLocation', () => {
     o(ret.value).deepEquals({ beforeA: 0, beforeB: 1, jumpA: 0, afterJump: 1 });
     o(ret.offset).equals(4);
   });
+
+  o('should calculate the size using at', () => {
+    const jumpingStruct = bp.object('Loc', {
+      jumpA: at(0x30, lu16),
+    });
+
+    o(jumpingStruct.size).equals(0x30 + 0x02);
+  });
+
+  o('should throw when trying to calculate size', () => {
+    o(() => at(0x30, lu16).size).throws(Error);
+  });
 });

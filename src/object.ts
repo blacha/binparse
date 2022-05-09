@@ -1,7 +1,10 @@
+import { StrutTypeAt } from './at.js';
 import { StrutBase } from './base.js';
 import { StrutAny, StrutInfer, StrutParserContext, StrutParserInput, StrutType } from './type.js';
 
 export type StrutReturnType<T> = { [K in keyof T]: StrutInfer<T[K]> };
+
+function sizeOf(strut: StrutAny) {}
 
 export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
   type: StrutType<T>;
@@ -19,7 +22,13 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
   get size(): number {
     if (this._size > -1) return this._size;
     let size = 0;
-    for (const ctx of this.fields) size += ctx.parser.size;
+    for (const ctx of this.fields) {
+      if (ctx.parser instanceof StrutTypeAt) {
+        size = ctx.parser.offset + ctx.parser.type.size;
+      } else {
+        size += ctx.parser.size;
+      }
+    }
     this._size = size;
     return this._size;
   }
@@ -104,7 +113,13 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
   get size(): number {
     if (this._size > -1) return this._size;
     let size = 0;
-    for (const ctx of this.fields) size += ctx.parser.size;
+    for (const ctx of this.fields) {
+      if (ctx.parser instanceof StrutTypeAt) {
+        size = ctx.parser.offset + ctx.parser.type.size;
+      } else {
+        size += ctx.parser.size;
+      }
+    }
     this._size = size;
     return this._size;
   }

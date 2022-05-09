@@ -15,7 +15,7 @@ export class StrutTypeAt<T> extends StrutBase<T> {
   }
 
   get size(): number {
-    return this.type.size;
+    throw new Error('Cannot calculate size with: ' + this.name);
   }
 
   parse(bytes: StrutParserInput, ctx: StrutParserContext): T {
