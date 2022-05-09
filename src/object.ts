@@ -4,8 +4,6 @@ import { StrutAny, StrutInfer, StrutParserContext, StrutParserInput, StrutType }
 
 export type StrutReturnType<T> = { [K in keyof T]: StrutInfer<T[K]> };
 
-function sizeOf(strut: StrutAny) {}
-
 export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
   type: StrutType<T>;
   fields: { key: string; parser: StrutAny }[];
