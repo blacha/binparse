@@ -1,3 +1,19 @@
+# [2.1.0](https://github.com/blacha/binparse/compare/v2.0.1...v2.1.0) (2022-05-09)
+
+
+### Bug Fixes
+
+* correctly get the size whe using the `at` type ([ed1d18a](https://github.com/blacha/binparse/commit/ed1d18a2a793c12022cd19a9f50c28c715c57dfd))
+* start at the offset that was passed in not at zero ([5980e64](https://github.com/blacha/binparse/commit/5980e64bcae2061eccc9686a135329eb080069b0))
+
+
+### Features
+
+* add explicit reading option to read at locations ([7dfc70a](https://github.com/blacha/binparse/commit/7dfc70a99394b2b26bf7fcabff3baa73ddc8c7bf))
+* force set the size of objects ([cba7c33](https://github.com/blacha/binparse/commit/cba7c330bf952b72749f715eb99118f429161e99))
+
+
+
 ## [2.0.1](https://github.com/blacha/binparse/compare/v2.0.0...v2.0.1) (2021-10-27)
 
 
