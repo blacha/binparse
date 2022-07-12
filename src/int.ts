@@ -51,9 +51,9 @@ export class LUInt64 extends StrutBase<number> {
   }
 }
 
-export class BigLUInt64 extends StrutBase<BigInt> {
+export class BigLUInt64 extends StrutBase<bigint> {
   size = 8;
-  parse(bytes: StrutParserInput, pkt: StrutParserContext): BigInt {
+  parse(bytes: StrutParserInput, pkt: StrutParserContext): bigint {
     const intA = BigInt(lu32.parse(bytes, pkt));
     const intB = BigInt(lu32.parse(bytes, pkt));
     return intA + (intB << BigInt(32));
