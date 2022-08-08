@@ -1,5 +1,47 @@
 [
   {
+    "hash": "1adde844c8bbaa57b2fdb3f4b1172a125e21a717",
+    "createdAt": "2022-08-08T07:02:28.298Z",
+    "results": [
+      {
+        "name": "Packet x 100,000",
+        "count": 12,
+        "command": "node build/src/__benchmark__/benchmark.packet.js",
+        "mean": 0.23921313690333337,
+        "stddev": 0.002931559910548757,
+        "median": 0.23928922682000003,
+        "user": 0.24056929833333332,
+        "system": 0.011938864583333333,
+        "min": 0.23463525432000001,
+        "max": 0.24410170732000003
+      },
+      {
+        "name": "UInt x 5,000,000",
+        "count": 26,
+        "command": "node build/src/__benchmark__/benchmark.int.js",
+        "mean": 0.11406751783115388,
+        "stddev": 0.002727850422794692,
+        "median": 0.11282206598500001,
+        "user": 0.10905998807692306,
+        "system": 0.011014427307692308,
+        "min": 0.11137152298500001,
+        "max": 0.12150077598500002
+      },
+      {
+        "name": "Array x 25,000",
+        "count": 10,
+        "command": "node build/src/__benchmark__/benchmark.array.js",
+        "mean": 0.46884048751500007,
+        "stddev": 0.006145252649610456,
+        "median": 0.46719287501500006,
+        "user": 0.44795026499999996,
+        "system": 0.033750310000000006,
+        "min": 0.46170475001500005,
+        "max": 0.484302846015
+      }
+    ]
+  },
+  {
     "hash": "d5facd568ec10ad6d62497058f90f7c1cacc6c0a",
     "createdAt": "2022-07-12T00:01:39.564Z",
     "results": [
