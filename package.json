@@ -28,7 +28,7 @@
   ],
   "devDependencies": {
     "@linzjs/style": "^3.14.0",
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.11.13",
     "@types/ospec": "^4.0.3",
     "conventional-changelog-cli": "^2.2.2",
     "ospec": "^4.1.1",
