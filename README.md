@@ -1,6 +1,5 @@
 # binparse
 
-
 Typed binary object parser
 
 ```typescript
@@ -22,18 +21,17 @@ value.id; // 0x01
 value.x; // 0x01;
 value.y; // 0x02
 
-value.unk1 // Typescript error 
+value.unk1; // Typescript error
 ```
 
 Heavily inspired by [zod](https://github.com/vriad/zod)
-
-
 
 ## Arrays
 
 Read in a variable length array of points
 
 Load the length in as a variable which can be referenced by the array parser for the length
+
 ```typescript
 import { bp } from 'binparse';
 
@@ -54,8 +52,7 @@ const PointsParser = bp.object('SimpleObject', {
 const points = PointsParser.read([0x01, 0x01, 0x00, 0x02, 0x00]);
 ```
 
-
-## BitFlags 
+## BitFlags
 
 ```typescript
 import { bp } from 'binparse';
@@ -83,8 +80,8 @@ import { bp } from 'binparse';
 const sparseParser = bp.object('Sparse', {
   first: bp.at(0x30, bp.lu32), // Read a lu32 at 0x30
   second: bp.at(0x60, bp.lu32), // Read a lu32 at 0x60
-})
-sparseParser.size // 0x64 
+});
+sparseParser.size; // 0x64
 ```
 
 ## Performance
