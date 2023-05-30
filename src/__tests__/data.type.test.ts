@@ -1,6 +1,5 @@
 import { describe, beforeEach, it } from 'node:test';
 import assert from 'node:assert';
-import 'source-map-support/register.js';
 import { StrutParserContext } from '../type.js';
 import { bp } from '../index.js';
 import { StrutTypeArrayOffset } from '../array.js';
