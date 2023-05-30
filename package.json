@@ -16,7 +16,6 @@
     "format": "npx prettier -w .github/**/*.yml *.md",
     "test": "node --test"
   },
-  "dependencies": {},
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +26,7 @@
     "build/src"
   ],
   "devDependencies": {
-    "@linzjs/style": "^3.16.0",
+    "@linzjs/style": "^4.0.0",
     "@types/node": "^18.11.9"
   }
 }

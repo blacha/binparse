@@ -4,7 +4,6 @@ import { StrutParserContext, StrutParserInput, StrutType } from './type.js';
 type ValueOf<T> = T[keyof T];
 
 export class StrutTypeLookup<T> extends StrutBase<{ id: ValueOf<T>; name: keyof T }> {
-  name: string;
   type: StrutType<number>;
   lookup: (id: number) => keyof T | undefined;
 

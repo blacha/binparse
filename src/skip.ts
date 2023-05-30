@@ -10,7 +10,7 @@ export class StrutTypeSkip extends StrutBase<undefined> {
     this.size = count;
   }
 
-  parse(bytes: StrutParserInput, ctx: StrutParserContext): undefined {
+  parse(_bytes: StrutParserInput, ctx: StrutParserContext): undefined {
     ctx.offset += this.size;
     return undefined;
   }

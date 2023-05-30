@@ -51,6 +51,7 @@ export class BitStream {
     const bitPos = this.offset % 8;
     const byte = this.buffer[bytePos];
     this.offset++;
+    if (byte == null) throw new Error('BitStream: Overflow: ' + this.remainingBits);
     return this.getBitValue(byte, bitPos, 1);
   }
 
@@ -65,7 +66,7 @@ export class BitStream {
     let bits = 0;
     while (length > 0) {
       const bit = this.bit();
-      if (bit === 1) bits += Power2[initialLen - length];
+      if (bit === 1) bits += Power2[initialLen - length]!;
       length--;
     }
     return bits;

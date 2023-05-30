@@ -1,11 +1,10 @@
 import { StrutTypeAt } from './at.js';
 import { StrutBase } from './base.js';
-import { StrutAny, StrutInfer, StrutParserContext, StrutParserInput, StrutType } from './type.js';
+import { StrutAny, StrutInfer, StrutParserContext, StrutParserInput } from './type.js';
 
 export type StrutReturnType<T> = { [K in keyof T]: StrutInfer<T[K]> };
 
 export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
-  type: StrutType<T>;
   fields: { key: string; parser: StrutAny }[];
 
   constructor(name: string, obj: T) {
@@ -45,7 +44,6 @@ export class StrutTypeObject<T extends Record<string, StrutAny>> extends StrutBa
  * initial benchmarks put it at almost 10x faster
  */
 export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extends StrutBase<StrutReturnType<T>> {
-  type: StrutType<T>;
   fields: { key: string; parser: StrutAny }[] = [];
 
   constructor(name: string, obj: T) {
@@ -128,7 +126,7 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  parse(bytes: StrutParserInput, ctx: StrutParserContext): StrutReturnType<T> {
+  parse(_bytes: StrutParserInput, _ctx: StrutParserContext): StrutReturnType<T> {
     return {} as StrutReturnType<T>;
   }
 }
