@@ -1,4 +1,5 @@
-import o from 'ospec';
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
 import { bp } from '../index.js';
 
 enum Foo {
@@ -6,8 +7,8 @@ enum Foo {
   baz = 2,
 }
 
-o.spec('StrutLookup', () => {
-  o('should lookup from enum', () => {
+describe('StrutLookup', () => {
+  it('should lookup from enum', () => {
     const lookup = bp.lookup<typeof Foo>('Foo', bp.u8, (id) => {
       switch (id) {
         case 1:
@@ -17,21 +18,21 @@ o.spec('StrutLookup', () => {
       }
       return undefined;
     });
-    o(lookup.size).equals(1);
-    o(lookup.raw([0x01]).name).equals('bar');
-    o(lookup.raw([0x01]).id).equals(1);
+    assert.equal(lookup.size, 1);
+    assert.equal(lookup.raw([0x01]).name, 'bar');
+    assert.equal(lookup.raw([0x01]).id, 1);
 
-    o(lookup.raw([0x02]).name).equals('baz');
-    o(lookup.raw([0x02]).id).equals(2);
+    assert.equal(lookup.raw([0x02]).name, 'baz');
+    assert.equal(lookup.raw([0x02]).id, 2);
   });
 
-  o('should be typesafe in lookups', () => {
+  it('should be typesafe in lookups', () => {
     const lookup = bp.enum('Foo', bp.u8, Foo);
-    o(lookup.size).equals(1);
-    o(lookup.raw([0x01]).name).equals('bar');
-    o(lookup.raw([0x01]).id).equals(1);
+    assert.equal(lookup.size, 1);
+    assert.equal(lookup.raw([0x01]).name, 'bar');
+    assert.equal(lookup.raw([0x01]).id, 1);
 
-    o(lookup.raw([0x02]).name).equals('baz');
-    o(lookup.raw([0x02]).id).equals(2);
+    assert.equal(lookup.raw([0x02]).name, 'baz');
+    assert.equal(lookup.raw([0x02]).id, 2);
   });
 });

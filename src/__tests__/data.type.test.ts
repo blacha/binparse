@@ -1,119 +1,112 @@
-import o from 'ospec';
+import { describe, beforeEach, it } from 'node:test';
+import assert from 'node:assert';
 import 'source-map-support/register.js';
 import { StrutParserContext } from '../type.js';
 import { bp } from '../index.js';
 import { StrutTypeArrayOffset } from '../array.js';
 
-o.spec('DataType', () => {
+describe('DataType', () => {
   let pkt: StrutParserContext;
-  o.beforeEach(() => {
+  beforeEach(() => {
     pkt = { offset: 0, startOffset: 0 };
   });
-  o.spec('String', () => {
-    o('String:Fixed', () => {
-      const res = bp.string(4).parse([100, 101, 102, 80, 83, 0], pkt);
-      o(res).equals('defP');
-      o(pkt.offset).equals(4);
-    });
-    o('String:Var', () => {
-      const res = bp.string().parse([100, 101, 102, 80, 83, 0], pkt);
-      o(res).equals('defPS');
-      o(pkt.offset).equals(6);
-    });
+  it('String:Fixed', () => {
+    const res = bp.string(4).parse([100, 101, 102, 80, 83, 0], pkt);
+    assert.equal(res, 'defP');
+    assert.equal(pkt.offset, 4);
+  });
+  it('String:Var', () => {
+    const res = bp.string().parse([100, 101, 102, 80, 83, 0], pkt);
+    assert.equal(res, 'defPS');
+    assert.equal(pkt.offset, 6);
   });
 
-  o.spec('Object', () => {
-    o('should parse a object', () => {
-      const obj = bp.object('Test', { u8: bp.u8, lu16: bp.lu16 });
-      const res = obj.parse([255, 1, 0], pkt);
-      o(res).deepEquals({ u8: 255, lu16: 1 });
-      o(obj.size).equals(3);
-    });
+  it('should parse a object', () => {
+    const obj = bp.object('Test', { u8: bp.u8, lu16: bp.lu16 });
+    const res = obj.parse([255, 1, 0], pkt);
+    assert.deepEqual(res, { u8: 255, lu16: 1 });
+    assert.equal(obj.size, 3);
   });
 
-  o.spec('Array', () => {
-    o('should parse a array', () => {
-      const obj = bp.bytes(4);
-      o(obj.size).equals(4);
-      const res = obj.parse([1, 2, 3, 4], pkt);
-      o(res).deepEquals([1, 2, 3, 4]);
-      o(pkt.offset).equals(4);
-    });
-
-    o('should parse a var array with offset', () => {
-      const obj = bp.object('Obj', {
-        len: bp.u8,
-        varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', true),
-      });
-      o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3] });
-      o(pkt.offset).equals(3);
-      o(() => obj.size).throws(Error);
-    });
-    o('should parse a var array without offset', () => {
-      const obj = bp.object('Obj', {
-        len: bp.u8,
-        varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', false),
-      });
-      o(obj.parse([3, 2, 3, 4], pkt)).deepEquals({ len: 3, varArray: [2, 3, 4] });
-      o(pkt.offset).equals(4);
-      o(() => obj.size).throws(Error);
-    });
+  it('should parse a array', () => {
+    const obj = bp.bytes(4);
+    assert.equal(obj.size, 4);
+    const res = obj.parse([1, 2, 3, 4], pkt);
+    assert.deepEqual(res, [1, 2, 3, 4]);
+    assert.equal(pkt.offset, 4);
   });
 
-  o.spec('Int', () => {
-    o('uint8', () => {
-      o(bp.u8.size).equals(1);
-      const bytes = [100, 101, 102, 80, 83, 0];
-      o(bp.u8.parse(bytes, pkt)).equals(100);
-      o(pkt.offset).equals(1);
-      o(bp.u8.parse(bytes, pkt)).equals(101);
-      o(pkt.offset).equals(2);
-      o(bp.u8.parse(bytes, pkt)).equals(102);
-      o(pkt.offset).equals(3);
-      o(bp.u8.parse(bytes, pkt)).equals(80);
-      o(pkt.offset).equals(4);
-      o(bp.u8.parse(bytes, pkt)).equals(83);
-      o(pkt.offset).equals(5);
+  it('should parse a var array with offset', () => {
+    const obj = bp.object('Obj', {
+      len: bp.u8,
+      varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', true),
     });
-
-    o('uint16', () => {
-      o(bp.lu16.size).equals(2);
-      const bytes = [36, 0, 102, 80, 83, 0];
-      o(bp.lu16.parse(bytes, pkt)).equals(36);
-      o(pkt.offset).equals(2);
-      o(bp.lu16.parse(bytes, pkt)).equals(20582);
-      o(pkt.offset).equals(4);
+    assert.deepEqual(obj.parse([3, 2, 3, 4], pkt), { len: 3, varArray: [2, 3] });
+    assert.equal(pkt.offset, 3);
+    assert.throws(() => obj.size, Error);
+  });
+  it('should parse a var array without offset', () => {
+    const obj = bp.object('Obj', {
+      len: bp.u8,
+      varArray: new StrutTypeArrayOffset('Test', bp.u8, 'len', false),
     });
+    assert.deepEqual(obj.parse([3, 2, 3, 4], pkt), { len: 3, varArray: [2, 3, 4] });
+    assert.equal(pkt.offset, 4);
+    assert.throws(() => obj.size, Error);
+  });
 
-    o('uint32', () => {
-      o(bp.lu32.size).equals(4);
+  it('uint8', () => {
+    assert.equal(bp.u8.size, 1);
+    const bytes = [100, 101, 102, 80, 83, 0];
+    assert.equal(bp.u8.parse(bytes, pkt), 100);
+    assert.equal(pkt.offset, 1);
+    assert.equal(bp.u8.parse(bytes, pkt), 101);
+    assert.equal(pkt.offset, 2);
+    assert.equal(bp.u8.parse(bytes, pkt), 102);
+    assert.equal(pkt.offset, 3);
+    assert.equal(bp.u8.parse(bytes, pkt), 80);
+    assert.equal(pkt.offset, 4);
+    assert.equal(bp.u8.parse(bytes, pkt), 83);
+    assert.equal(pkt.offset, 5);
+  });
 
-      const bytes = [36, 0, 0, 0, 0, 0, 0, 1];
-      o(bp.lu32.parse(bytes, pkt)).equals(36);
-      o(pkt.offset).equals(4);
-      o(bp.lu32.parse(bytes, pkt)).equals(16777216);
-      o(pkt.offset).equals(8);
+  it('uint16', () => {
+    assert.equal(bp.lu16.size, 2);
+    const bytes = [36, 0, 102, 80, 83, 0];
+    assert.equal(bp.lu16.parse(bytes, pkt), 36);
+    assert.equal(pkt.offset, 2);
+    assert.equal(bp.lu16.parse(bytes, pkt), 20582);
+    assert.equal(pkt.offset, 4);
+  });
 
-      o(bp.lu32.parse([1, 0, 0, 0], { offset: 0, startOffset: 0 })).equals(1);
-      o(bp.lu32.parse([0, 1, 0, 0], { offset: 0, startOffset: 0 })).equals(256);
-      o(bp.lu32.parse([0, 0, 1, 0], { offset: 0, startOffset: 0 })).equals(65536);
-      o(bp.lu32.parse([0, 0, 0, 1], { offset: 0, startOffset: 0 })).equals(16777216);
-      o(bp.lu32.parse([255, 255, 255, 1], { offset: 0, startOffset: 0 })).equals(33554431);
-    });
+  it('uint32', () => {
+    assert.equal(bp.lu32.size, 4);
 
-    o('unit32 from buffer', () => {
-      const bytes = Buffer.from([0xdd, 0x7e, 0xf4, 0xaa, 0x7f, 0xf7, 0x8c, 0xa6]);
-      const uintA = bp.lu32.parse(bytes, { offset: 0, startOffset: 4 });
-      const uintB = bp.lu32.parse(bytes, { offset: 4, startOffset: 4 });
+    const bytes = [36, 0, 0, 0, 0, 0, 0, 1];
+    assert.equal(bp.lu32.parse(bytes, pkt), 36);
+    assert.equal(pkt.offset, 4);
+    assert.equal(bp.lu32.parse(bytes, pkt), 16777216);
+    assert.equal(pkt.offset, 8);
 
-      o(uintA).equals(bytes.readUInt32LE(0));
-      o(uintB).equals(bytes.readUInt32LE(4));
+    assert.equal(bp.lu32.parse([1, 0, 0, 0], { offset: 0, startOffset: 0 }), 1);
+    assert.equal(bp.lu32.parse([0, 1, 0, 0], { offset: 0, startOffset: 0 }), 256);
+    assert.equal(bp.lu32.parse([0, 0, 1, 0], { offset: 0, startOffset: 0 }), 65536);
+    assert.equal(bp.lu32.parse([0, 0, 0, 1], { offset: 0, startOffset: 0 }), 16777216);
+    assert.equal(bp.lu32.parse([255, 255, 255, 1], { offset: 0, startOffset: 0 }), 33554431);
+  });
 
-      const outputBuffer = Buffer.alloc(bytes.length);
-      outputBuffer.writeUInt32LE(uintA, 0);
-      outputBuffer.writeUInt32LE(uintB, 4);
+  it('unit32 from buffer', () => {
+    const bytes = Buffer.from([0xdd, 0x7e, 0xf4, 0xaa, 0x7f, 0xf7, 0x8c, 0xa6]);
+    const uintA = bp.lu32.parse(bytes, { offset: 0, startOffset: 4 });
+    const uintB = bp.lu32.parse(bytes, { offset: 4, startOffset: 4 });
 
-      o(outputBuffer.toString('hex')).equals(bytes.toString('hex'));
-    });
+    assert.equal(uintA, bytes.readUInt32LE(0));
+    assert.equal(uintB, bytes.readUInt32LE(4));
+
+    const outputBuffer = Buffer.alloc(bytes.length);
+    outputBuffer.writeUInt32LE(uintA, 0);
+    outputBuffer.writeUInt32LE(uintB, 4);
+
+    assert.equal(outputBuffer.toString('hex'), bytes.toString('hex'));
   });
 });
