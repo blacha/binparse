@@ -1,4 +1,4 @@
-import { bp } from '../src/index';
+import { bp } from '../src/index.js';
 
 const simpleParser = bp.object('SimpleObject', {
   id: bp.lu16,

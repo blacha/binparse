@@ -1,4 +1,4 @@
-import { bp } from '../src';
+import { bp } from '../src/index.js';
 
 const FlagParser = bp.bits('Flags', {
   isRed: 1,

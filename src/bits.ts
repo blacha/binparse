@@ -11,9 +11,9 @@ export class StrutTypeBits<T extends Record<string, number>> extends StrutBase<T
     let totalBits = 0;
     this.fields = Object.keys(obj).map((key) => {
       const bits = obj[key];
-      totalBits += bits;
+      totalBits += bits ?? 0;
       return { key, bits };
-    });
+    }) as { key: string; bits: number }[];
     this.size = Math.ceil(totalBits / 8);
   }
 
