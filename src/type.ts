@@ -36,5 +36,5 @@ export interface StrutType<T> {
 export type RefineCallBack<TIn, TOut> = (value: TIn, bytes?: StrutParserInput, pkt?: StrutParserContext) => TOut;
 
 export type StrutAny = StrutType<any>;
-export type StrutEval<T> = T extends any[] | Date ? T : { [Key in keyof T]: T[Key] };
+export type StrutEval<T> = T extends any[] | Date | number ? T : { [Key in keyof T]: T[Key] };
 export type StrutInfer<T> = T extends StrutType<infer K> ? StrutEval<K> : never;
