@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - master
+
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4 # v4
+        id: release
+        with:
+          release-type: node
+
+  publish-release:
+    permissions:
+      contents: read
+      id-token: write
+
+    environment:
+      name: prod
+
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.outputs.release_created }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint
+      - run: npm run test
+
+      - name: Publish to NPM
+        run: npm publish
