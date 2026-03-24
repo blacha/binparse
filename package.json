@@ -14,7 +14,7 @@
     "build-watch": "tsc --pretty --watch",
     "lint": "eslint . --quiet --fix --ignore-path .gitignore",
     "format": "npx prettier -w .github/**/*.yml *.md",
-    "test": "node --test"
+    "test": "node --test \"build/**/*.test.js\""
   },
   "publishConfig": {
     "access": "public"
