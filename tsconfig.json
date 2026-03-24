@@ -1,7 +1,37 @@
 {
-  "extends": "@linzjs/style/tsconfig.base.json",
+  // ESM tsconfig based off https://github.com/sindresorhus/tsconfig/blob/main/tsconfig.json
   "compilerOptions": {
-    "outDir": "build",
-    "noUncheckedIndexedAccess": false
+    "composite": true,
+    // ESM Modules for node16+
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "moduleDetection": "force",
+    // To provide backwards compatibility, Node.js allows you to import most CommonJS packages with a default import. This flag tells TypeScript that it's okay to use import on CommonJS modules.
+    "allowSyntheticDefaultImports": true,
+    // ESM doesn't yet support JSON modules.
+    "resolveJsonModule": false,
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "pretty": true,
+    "newLine": "lf",
+    "jsx": "react",
+    "declaration": true,
+    "stripInternal": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    // "noUncheckedIndexedAccess": false,
+    // "noPropertyAccessFromIndexSignature": true,
+    "noEmitOnError": true,
+    // "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+
+    "outDir": "./build/"
   }
 }

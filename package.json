@@ -12,8 +12,8 @@
   "scripts": {
     "build": "tsc --pretty",
     "build-watch": "tsc --pretty --watch",
-    "lint": "eslint . --quiet --fix --ignore-path .gitignore",
-    "format": "npx prettier -w .github/**/*.yml *.md",
+    "lint": "oxlint . --type-aware --fix && oxfmt . --write",
+    "check": "oxlint . --type-aware && oxfmt . --check",
     "test": "node --test \"build/**/*.test.js\""
   },
   "publishConfig": {
@@ -26,7 +26,9 @@
     "build/src"
   ],
   "devDependencies": {
-    "@linzjs/style": "^4.0.0",
-    "@types/node": "^18.11.9"
+    "@types/node": "^18.11.9",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0",
+    "typescript": "^6.0.2"
   }
 }
