@@ -1,5 +1,5 @@
 import { StrutBase } from './base.js';
-import { StrutParserContext, StrutParserInput, StrutType } from './type.js';
+import type { StrutParserContext, StrutParserInput, StrutType } from './type.js';
 
 export class StrutTypeArray<T> extends StrutBase<T[]> {
   count: number;

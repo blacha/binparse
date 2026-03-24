@@ -1,5 +1,5 @@
 import { StrutBase } from './base.js';
-import { StrutParserContext, StrutParserInput } from './type.js';
+import type { StrutParserContext, StrutParserInput } from './type.js';
 
 /** Skip count amount of bytes from the buffer */
 export class StrutTypeSkip extends StrutBase<undefined> {

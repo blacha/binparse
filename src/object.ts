@@ -1,6 +1,6 @@
 import { StrutTypeAt } from './at.js';
 import { StrutBase } from './base.js';
-import { StrutAny, StrutInfer, StrutParserContext, StrutParserInput } from './type.js';
+import type { StrutAny, StrutInfer, StrutParserContext, StrutParserInput } from './type.js';
 
 export type StrutReturnType<T> = { [K in keyof T]: StrutInfer<T[K]> };
 

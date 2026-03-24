@@ -1,6 +1,6 @@
 import { describe, beforeEach, it } from 'node:test';
 import assert from 'node:assert';
-import { StrutParserContext } from '../type.js';
+import type { StrutParserContext } from '../type.js';
 import { bp } from '../index.js';
 import { StrutTypeArrayOffset } from '../array.js';
 

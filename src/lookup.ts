@@ -1,5 +1,5 @@
 import { StrutBase } from './base.js';
-import { StrutParserContext, StrutParserInput, StrutType } from './type.js';
+import type { StrutParserContext, StrutParserInput, StrutType } from './type.js';
 
 type ValueOf<T> = T[keyof T];
 

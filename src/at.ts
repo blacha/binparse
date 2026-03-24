@@ -1,6 +1,6 @@
 import { StrutBase } from './base.js';
 import { toHex } from './hex.js';
-import { StrutParserContext, StrutParserInput, StrutType } from './type.js';
+import type { StrutParserContext, StrutParserInput, StrutType } from './type.js';
 
 /**
  * Read a object at a specific offset

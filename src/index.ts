@@ -1,6 +1,6 @@
 import { StrutTypeArray, StrutTypeArrayOffset } from './array.js';
 import { StrutTypeAt } from './at.js';
-import { StrutBase } from './base.js';
+import type { StrutBase } from './base.js';
 import { StrutTypeBits, StrutTypeFlags } from './bits.js';
 import { StrutTypeBytes } from './bytes.js';
 import { blu64, lu16, lu32, lu64, u8 } from './int.js';
@@ -9,7 +9,7 @@ import { StrutTypeObject, StrutTypeObjectGenerated } from './object.js';
 import { StrutTypeOffset } from './offset.js';
 import { StrutTypeSkip } from './skip.js';
 import { StrutTypeStringFixed, StrutTypeStringNull } from './string.js';
-import { StrutAny, StrutType } from './type.js';
+import type { StrutAny, StrutType } from './type.js';
 
 /**
  * Read an fixed number of objects

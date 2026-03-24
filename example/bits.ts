@@ -1,3 +1,4 @@
+// oxlint-disable no-unused-expressions
 import { bp } from '../src/index.js';
 
 const FlagParser = bp.bits('Flags', {

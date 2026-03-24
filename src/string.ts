@@ -1,6 +1,6 @@
 import { StrutBase } from './base.js';
 import { toHex } from './hex.js';
-import { StrutParserContext, StrutParserInput } from './type.js';
+import type { StrutParserContext, StrutParserInput } from './type.js';
 
 /**
  * Variable length string that is null terminated.
