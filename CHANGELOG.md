@@ -10,6 +10,13 @@
 - add explicit reading option to read at locations ([7dfc70a](https://github.com/blacha/binparse/commit/7dfc70a99394b2b26bf7fcabff3baa73ddc8c7bf))
 - force set the size of objects ([cba7c33](https://github.com/blacha/binparse/commit/cba7c330bf952b72749f715eb99118f429161e99))
 
+## [2.2.0](https://github.com/blacha/binparse/compare/v2.1.0...v2.2.0) (2026-03-24)
+
+
+### Features
+
+* branded numbers ([cd85686](https://github.com/blacha/binparse/commit/cd8568605529f7c33c65f59890fb76dde7692465))
+
 ## [2.0.1](https://github.com/blacha/binparse/compare/v2.0.0...v2.0.1) (2021-10-27)
 
 ### Bug Fixes
