@@ -82,6 +82,7 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
       body += ` ${JSON.stringify(this.fields[i].key)}: _bp[${i}].parse(buf, ctx),`;
     }
     body += ' };';
+    // oxlint-disable-next-line typescript/no-implied-eval
     const func = new Function('_bp', 'buf', 'ctx', body);
     this.parse = func.bind(null, parsers);
   }
@@ -101,6 +102,7 @@ export class StrutTypeObjectGenerated<T extends Record<string, StrutAny>> extend
       body += `ret[${JSON.stringify(this.fields[i].key)}] = _bp[${i}].parse(buf, ctx, ret)\n`;
     }
     body += `return ret`;
+    // oxlint-disable-next-line typescript/no-implied-eval
     const func = new Function('_bp', 'buf', 'ctx', body);
     this.parse = func.bind(null, parsers);
   }

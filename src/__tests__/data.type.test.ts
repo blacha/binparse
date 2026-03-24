@@ -1,8 +1,9 @@
-import { describe, beforeEach, it } from 'node:test';
 import assert from 'node:assert';
-import type { StrutParserContext } from '../type.js';
-import { bp } from '../index.js';
+import { describe, beforeEach, it } from 'node:test';
+
 import { StrutTypeArrayOffset } from '../array.js';
+import { bp } from '../index.js';
+import type { StrutParserContext } from '../type.js';
 
 describe('DataType', () => {
   let pkt: StrutParserContext;

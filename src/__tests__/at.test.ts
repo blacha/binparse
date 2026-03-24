@@ -1,7 +1,9 @@
-import { bp } from '../index.js';
-import { describe, it } from 'node:test';
 import assert from 'node:assert';
-const { at, lu16 } = bp;
+import { describe, it } from 'node:test';
+
+import { bp } from '../index.js';
+const { lu16 } = bp;
+const at = bp.at.bind(bp);
 
 describe('ExplicitLocation', () => {
   const buf = Buffer.from([

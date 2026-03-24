@@ -1,5 +1,6 @@
-import { describe, it } from 'node:test';
 import assert from 'node:assert';
+import { describe, it } from 'node:test';
+
 import { blu64, lu64 } from '../int.js';
 
 describe('Uint64', () => {
